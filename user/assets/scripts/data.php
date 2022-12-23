@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('Mail.php');
+//include('Mail.php');
 include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -10,13 +10,13 @@ header("X-Frame-Options: SAMEORIGIN");
 header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
-$servername = "runedung.ipowermysql.com";
-$username = "ruimun_db";
-$password = "Ruimun1#";
+$dbhost = 'localhost';
+$dbuser = "root";
+$password = "nnorom";
 $dbname = "ruimun";
-$connect = mysqli_connect($servername, $username, $password, $dbname);
+$connect = new mysqli($dbhost, $dbuser, $password, $dbname);
 try {
-  $access = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
   $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 catch(PDOException $e){

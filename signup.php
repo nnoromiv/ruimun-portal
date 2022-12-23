@@ -3,7 +3,7 @@ require_once 'user/assets/scripts/data.php';
 if (all()) {
 	redirect("user/login");
 }
-$committee =  getCommittee();
+//$committee =  getCommittee();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,6 +36,10 @@ $committee =  getCommittee();
 	  background-image: url('user/assets/images/utility/rumiun.png');
 	  background-size: cover;
 	  background-position: center;
+	  border-radius: 0 20px 20px 0;
+	  object-fit: cover;
+	  height: 100vh;
+	  position: relative;
 	}
 	.login-heading {
 	  font-weight: 300;
@@ -239,7 +243,7 @@ $committee =  getCommittee();
 								  In the Absence of Referral Code or Campus Ambassador, kindly type N/A.</small>
 			                  <span id="referral_hint" style="font-size:15px;color:darkred;"></span>
 			                </div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 							  <select required class="custom-select" id="committee1" name="committee1">
 							    <option value="">Select Committee 1</option>
 								<?php 
@@ -251,12 +255,12 @@ $committee =  getCommittee();
 										echo $menu;
 								?>
 							  </select>
-							</div>
-							<div class="form-group">
+							</div> -->
+							<!-- <div class="form-group">
 							  <select required class="custom-select" id="country1" name="country1">
 							  </select>
-							</div>
-							<div class="form-group">
+							</div> -->
+							<!-- <div class="form-group">
 							  <select required class="custom-select" id="committee2" name="committee2">
 							    <option value="">Select Committee 2</option>
 								<?php 
@@ -267,12 +271,12 @@ $committee =  getCommittee();
 										echo $menu;
 								?>
 							  </select>
-							</div>
-							<div class="form-group">
+							</div> -->
+							<!-- <div class="form-group">
 							  <select required class="custom-select" id="country2" name="country2">
 							  </select>
-							</div>
-							<div class="form-group">
+							</div> -->
+							<!-- <div class="form-group">
 							  <select required class="custom-select" id="committee3" name="committee3">
 							    <option value="">Select Committee 3</option>
 								<?php 
@@ -283,11 +287,11 @@ $committee =  getCommittee();
 										echo $menu;
 								?>
 							  </select>
-							</div>
-							<div class="form-group">
+							</div> -->
+							<!-- <div class="form-group">
 							  <select required class="custom-select" id="country3" name="country3">
 							  </select>
-							</div>
+							</div> -->
 			                <div class="form-group">
 			                  <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
 			                  <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
@@ -337,80 +341,80 @@ $committee =  getCommittee();
 			  	}
 			});
 
-			$("#committee1").change(function () {
-				var id= $("#committee1").val()
-				$.ajax({
-					url: 'user/assets/scripts/data',
-					data: {committee:id},
-					type: 'get',
-					success: function(response){
-						const countries = JSON.parse(response)
-						console.log(countries)
-						var match = countries.split(',')
-						console.log(match)
-						// for (var a in match)
-						// {
-						// 	var variable = match[a]
-						// 	console.log(variable)
-						// }
+			// $("#committee1").change(function () {
+			// 	var id= $("#committee1").val()
+			// 	$.ajax({
+			// 		url: 'user/assets/scripts/data',
+			// 		data: {committee:id},
+			// 		type: 'get',
+			// 		success: function(response){
+			// 			const countries = JSON.parse(response)
+			// 			console.log(countries)
+			// 			var match = countries.split(',')
+			// 			console.log(match)
+			// 			// for (var a in match)
+			// 			// {
+			// 			// 	var variable = match[a]
+			// 			// 	console.log(variable)
+			// 			// }
 						
 
-						$("#country1").empty().append('<option>Select Country 1</option>')
-						match.forEach(element => {
-							$('#country1').append($('<option>', {
-								value: element,
-								text: element
-							}));
-						});
-					}
-				})
-			})
+			// 			$("#country1").empty().append('<option>Select Country 1</option>')
+			// 			match.forEach(element => {
+			// 				$('#country1').append($('<option>', {
+			// 					value: element,
+			// 					text: element
+			// 				}));
+			// 			});
+			// 		}
+			// 	})
+			// })
 
-			$("#committee2").change(function () {
-				var id= $("#committee2").val()
-				$.ajax({
-					url: 'user/assets/scripts/data',
-					data: {committee:id},
-					type: 'get',
-					success: function(response){
-						const countries = JSON.parse(response)
-						console.log(countries)
-						var match = countries.split(',')
-						console.log(match)						
+			// $("#committee2").change(function () {
+			// 	var id= $("#committee2").val()
+			// 	$.ajax({
+			// 		url: 'user/assets/scripts/data',
+			// 		data: {committee:id},
+			// 		type: 'get',
+			// 		success: function(response){
+			// 			const countries = JSON.parse(response)
+			// 			console.log(countries)
+			// 			var match = countries.split(',')
+			// 			console.log(match)						
 
-						$("#country2").empty().append('<option>Select Country 2</option>')
-						match.forEach(element => {
-							$('#country2').append($('<option>', {
-								value: element,
-								text: element
-							}));
-						});
-					}
-				})
-			})
+			// 			$("#country2").empty().append('<option>Select Country 2</option>')
+			// 			match.forEach(element => {
+			// 				$('#country2').append($('<option>', {
+			// 					value: element,
+			// 					text: element
+			// 				}));
+			// 			});
+			// 		}
+			// 	})
+			// })
 
-			$("#committee3").change(function () {
-				var id= $("#committee3").val()
-				$.ajax({
-					url: 'user/assets/scripts/data',
-					data: {committee:id},
-					type: 'get',
-					success: function(response){
-						const countries = JSON.parse(response)
-						console.log(countries)
-						var match = countries.split(',')
-						console.log(match)						
+			// $("#committee3").change(function () {
+			// 	var id= $("#committee3").val()
+			// 	$.ajax({
+			// 		url: 'user/assets/scripts/data',
+			// 		data: {committee:id},
+			// 		type: 'get',
+			// 		success: function(response){
+			// 			const countries = JSON.parse(response)
+			// 			console.log(countries)
+			// 			var match = countries.split(',')
+			// 			console.log(match)						
 
-						$("#country3").empty().append('<option>Select Country 3</option>')
-						match.forEach(element => {
-							$('#country3').append($('<option>', {
-								value: element,
-								text: element
-							}));
-						});
-					}
-				})
-			})
+			// 			$("#country3").empty().append('<option>Select Country 3</option>')
+			// 			match.forEach(element => {
+			// 				$('#country3').append($('<option>', {
+			// 					value: element,
+			// 					text: element
+			// 				}));
+			// 			});
+			// 		}
+			// 	})
+			// })
 
 			$('#name_hint').text("");
 			$('#email_hint').text("");
@@ -449,7 +453,7 @@ $committee =  getCommittee();
 			  	}
 			});
 			$(document).on('submit', '#signup', function(event){
-				$("#submit").html('<img src="user/assets/images/utility/spinner.gif" class="py-1">&nbsp;&nbsp;signing up');
+				$("#submit").html('<img src="user/assets/images/utility/spinner.gif" class="py-1">&nbsp;&nbsp;Signing up');
 				$("#submit").prop('disabled', true);
 				$('#name_hint').text("");
 				$('#email_hint').text("");

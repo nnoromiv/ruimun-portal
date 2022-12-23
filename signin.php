@@ -7,7 +7,7 @@ if (all()) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>RUIMUN&nbsp;-&nbsp;Sign In</title>
+  <title>RUIMUN</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="user/assets/images/utility/icon.png">
@@ -38,6 +38,7 @@ if (all()) {
 	  background-image: url('user/assets/images/utility/rumiun.png');
 	  background-size: cover;
 	  background-position: center;
+	  border-radius: 0 20px 20px 0;
 	}
 	.login-heading {
 	  font-weight: 300;
@@ -53,6 +54,7 @@ if (all()) {
 	.form-label-group>label {
 	  padding: var(--input-padding-y) var(--input-padding-x);
 	  height: auto;
+	  border-radius: 30px;
 	}
 	.form-label-group input::-webkit-input-placeholder {
 	  color: transparent;
@@ -126,7 +128,7 @@ if (all()) {
 	        <div class="container">
 	          <div class="row">
 	            <div class="col-md-9 col-lg-8 mx-auto">
-	              	<h4 class="login-heading mb-4">Sign into your account</h4>
+
 	              <form id="signin" method="post" autocomplete="off">
 	              	<div class="form-group">
 	                  <span id="response" style="font-size:15px;color:darkred;"></span>
@@ -139,11 +141,11 @@ if (all()) {
 	                </div>
 	                <div class="form-group">
 	                	<input required type="hidden" name="token" id="token" value="<?php echo tokenGenerator();?>">
-	                	<button id="submit" class="btn btn-lg btn-block btn-login font-weight-bold" style="background:#494263;color:white;" type="submit">Sign In</button>
+	                	<button id="submit" class="btn btn-lg btn-block btn-login font-weight-bold" style="background:#494263;color:white;border-radius:30px;" type="submit">Sign In</button>
 	                </div>
 	                <hr>
 	                <div class="text-center">
-                  		<a href="forgot" style="color:#7F6610;font-size:14px;font-weight:lighter;">Forgot password?</a><br>New member&nbsp;-&nbsp;<a href="signup" style="color:#7F6610;font-size:14px;font-weight:lighter;">Register</a>
+                  		<a href="forgot" style="color:#7F6610;font-size:14px;font-weight:lighter;">Forgotten your password?</a><br>Create an account? <a href="signup" style="color:#7F6610;font-size:14px;font-weight:lighter;">Register</a>
                   	</div>
 	              </form>
 	            </div>
