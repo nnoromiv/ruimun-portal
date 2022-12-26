@@ -203,7 +203,7 @@ if (!admin()) {
           <form method="POST" id="formActivatePayment">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" readonly>
+              <input type="text" class="form-control" id="name" name='name'readonly>
               <input type="hidden" class="form-control" name="userid" id="userid">
               <input type="hidden" class="form-control" name="paytype" id="paytype">
             </div>
@@ -216,8 +216,15 @@ if (!admin()) {
                 <input type="text" class="form-control" id="trans_id" name="trans_id" required>
             </div>
             <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="tel" class="form-control" id="amount" name="amount" required>
+                <label for="amount"></label>
+                <select required class="form-control" id="amount" name="amount">
+							  <option value="">Amount</option>
+							  <option value="55000" id="amount" name="amount">Nigerian Delegate (₦55,000)</option>
+							  <!-- <option value="sec_school">Secondary School Delegate (₦20,000)</option> -->
+							  <option value="45000" id="amount" name="amount">Redeemer's University (₦45,000)</option>
+							  <!-- <option value="virtual">Virtual Delegate ($10)</option> -->
+							  <option value="67000" id="amount" name="amount">International Delegate ($150)</option>
+							  </select>
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
@@ -241,8 +248,8 @@ if (!admin()) {
                 <div class="container">
                     <div class="row">
                       <div class="col">
-                        <p>Name: <span id="name"></span></p>
-                        <p>Email: <span id="email"></span></p>
+                        <p>Name: <span id="my_name"></span></p>
+                        <p>Email: <span id="my_email"></span></p>
                         <p>Phone: <span id="phone"></span></p>
                         <p>Member Type: <span id="type"></span></p>
                         <p>Gender: <span id="gender"></span></p>
@@ -308,8 +315,8 @@ if (!admin()) {
         $("#dataTable").on("click", ".viewMember", function () {
             $("#viewdetailsModal").modal("show");           
             $("#member_details").html($(this).data('name'))
-            $("#name").html($(this).data('name'))
-            $("#email").html($(this).data('email'))
+            $("#my_name").html($(this).data('name'))
+            $("#my_email").html($(this).data('email'))
             $("#phone").html($(this).data('phone'))
             $("#type").html($(this).data('type'))
             $("#gender").html($(this).data('gender'))
@@ -361,6 +368,7 @@ if (!admin()) {
                           console.log(response);
                           if (response == "1") {
                             $("#btnActivatePayment").html("Submit");
+                            
                             notify("Payment Activated");
                           }
                           else{

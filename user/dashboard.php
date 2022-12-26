@@ -152,7 +152,8 @@ $members = mysqli_num_rows(mysqli_query($connect, 'SELECT id FROM enrollment'));
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Revenue (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">&#8358;&nbsp;<?php echo $payments; ?></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">&#8358;&nbsp;
+                        <?php echo $payments; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-money-bill-alt fa-2x text-gray-300"></i>
@@ -183,6 +184,7 @@ $members = mysqli_num_rows(mysqli_query($connect, 'SELECT id FROM enrollment'));
               </div>
             </div>
           </div>
+          <!-- <button type="button" class="btn btn-md" style="background:#494263;color:white;" >Update Subscribers</button> -->
         </div>
         <!-- /.container-fluid -->
 

@@ -23,7 +23,7 @@ catch(PDOException $e){
   echo $e->getMessage();
 }
 define('URL', 'http://localhost/ruimun/');
-define('API_SECRET_KEY', 'sk_test_565dcb3ba1046095667f2fac56d712167d6dfa9d');
+define('API_SECRET_KEY', 'sk_test_565dcb3ba1046095667f2fac56d712167d6dfa9d'); 
 
 if (isset($_GET['committee'])) {
   global $access;
@@ -184,9 +184,9 @@ function getCountries($committee_id){
 
 function signup_mail($name,$email,$code){
   $date = date("Y");
-$sendto = "$name<$email>";
-$sendfrom = "RUIMUN<payments@ruimun.org>";
-$sendsubject = "Your Account Activation Code";
+  $sendto = "$name<$email>";
+  $sendfrom = "RUIMUN<payments@ruimun.org>";
+  $sendsubject = "Your Account Activation Code";
 
   $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
               Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,

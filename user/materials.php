@@ -152,6 +152,7 @@ $lname = $get_name[1];
           <?php
             $userid = clean($_SESSION['userid']);
             $current = date("Y");
+            $statement = "INSERT INTO subscription VALUES( $userid, $current )";
             $sql = mysqli_query($connect, "SELECT year FROM subscription WHERE user_id='$userid'");
             if (mysqli_num_rows($sql) >= 1) {
               echo '<div class="card shadow mb-4">
@@ -172,8 +173,8 @@ $lname = $get_name[1];
                         </div>
                         <div class="card-body">
                           <p>You are a <b style="font-weight:bold;text-transform:uppercase;">'.$type.' DELEGATE</b></p>
-                          <p>Your registration fee is <b style="font-weight:bold;text-transform:uppercase;">'.$check.'&nbsp;'.number_format($paying).'</b></p>
                           <button disabled type="button" class="btn btn-md" style="background:#494263;color:white;" onclick="makePayment()">Pay Fee</button>
+                          <button type="button" class="btn btn-md" style="background:#494263;color:white;" >   Subscribe</button>
                         </div>
                       </div>
                     </div>
