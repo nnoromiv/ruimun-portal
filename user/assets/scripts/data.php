@@ -1,6 +1,6 @@
 <?php
 session_start();
-//include('Mail.php');
+// include('Mail.php');
 include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -186,7 +186,7 @@ function signup_mail($name,$email,$code){
   $date = date("Y");
   $sendto = "$name<$email>";
   $sendfrom = "RUIMUN<payments@ruimun.org>";
-  $sendsubject = "Your Account Activation Code";
+  $sendsubject = "Account Activation Code";
 
   $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
               Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
@@ -202,27 +202,29 @@ function signup_mail($name,$email,$code){
                 <p>Copyright © RUIMUN '.$date.'</p>
               </div>
             </body>';
-    //send message to customers
-$message = new Mail_mime();
-$message->setHTMLBody($body);
-$body = $message->get();
-$extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-$headers = $message->headers($extraheaders);
-$mail = Mail::factory("mail");
-    if ($mail->send("$sendto", $headers, $body)) {
-      return true;
-    }else{
-      return false;
-    }
+    // send message to customers
+  $message = new Mail_mime();
+  $message->setHTMLBody($body);
+  $body = $message->get();
+  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
+  $headers = $message->headers($extraheaders);
+  $mail = Mail::factory("mail");
+      if ($mail->send("$sendto", $headers, $body)) {
+        return true;
+      }else{
+        return false;
+      }
 }
+
+
 function reset_mail($name,$email,$code){
   $date = date("Y");
-$sendto = "$name<$email>";
-$sendfrom = "RUIMUN<payments@ruimun.org>";
-$sendsubject = "Your Password Reset Code";
+  $sendto = "$name<$email>";
+  $sendfrom = "RUIMUN<payments@ruimun.org>";
+  $sendsubject = "Password Reset Code";
 
   $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
-              Hi '.$name.', you requested a passsword reset,
+              Hi '.$name.', you requested a password reset,
               <p>Your account reset code is:</p>
               <h4 style="font-weight:bold;">'.$code.'</h4>
               <br />
@@ -238,16 +240,16 @@ $sendsubject = "Your Password Reset Code";
               </div>
             </body>';
     //send message to customers
-$message = new Mail_mime();
-$message->setHTMLBody($body);
-$body = $message->get();
-$extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-$headers = $message->headers($extraheaders);
-$mail = Mail::factory("mail");
-    if ($mail->send("$sendto", $headers, $body)) {
-      return true;
-    }else{
-      return false;
-    }
+  $message = new Mail_mime();
+  $message->setHTMLBody($body);
+  $body = $message->get();
+  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
+  $headers = $message->headers($extraheaders);
+  $mail = Mail::factory("mail");
+      if ($mail->send("$sendto", $headers, $body)) {
+        return true;
+      }else{
+        return false;
+      }
 }
 ?>

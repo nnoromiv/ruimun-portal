@@ -128,15 +128,15 @@ if (!all()) {
 										<p>Copyright © RUIMUN '.$date.'</p>
 									</div>
 								</body>';
-						// $mail_status=mail($user_email, $subject, $body, $headers); 
-						// $mail_status = signup_mail($user_name,$user_email,$code);
-						// if ($mail_status===true) {
-						// 	$_SESSION['validate'] = 1;
-				    	// 	$data = array('success'=>true,'mail'=>$user_email,'token'=>$token);
-						// }
-						// else{
-				    	// 	$data = array('false'=>true,'status'=>$mail_status,'token'=>$token);
-						// }
+						$mail_status=mail($user_email, $subject, $body, $headers); 
+						$mail_status = signup_mail($user_name,$user_email,$code);
+						if ($mail_status===true) {
+							$_SESSION['validate'] = 1;
+				    		$data = array('success'=>true,'mail'=>$user_email,'token'=>$token);
+						}
+						else{
+				    		$data = array('false'=>true,'status'=>$mail_status,'token'=>$token);
+						}
 
 						$insert = $access->prepare("INSERT INTO access (user_id, email, password, user_type, captured) VALUES (:user_id, :email, :password, :user_type, :captured)");
 						$insert->bindParam(':user_id', $user_id);

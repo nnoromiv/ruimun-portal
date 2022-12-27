@@ -25,17 +25,8 @@ $("#committee1").change(function () {
         data: {committee:id},
         type: 'get',
         success: function(response){
-            const countries = JSON.parse(response)
-            console.log(countries)
-            var match = countries.split(',')
-            console.log(match)
-            // for (var a in match)
-            // {
-            // 	var variable = match[a]
-            // 	console.log(variable)
-            // }
-            
-
+            const countries = JSON.parse(response);
+            var match = countries.split(',');
             $("#country1").empty().append('<option>Country 1</option>')
             match.forEach(element => {
                 $('#country1').append($('<option>', {
@@ -54,11 +45,8 @@ $("#committee2").change(function () {
         data: {committee:id},
         type: 'get',
         success: function(response){
-            const countries = JSON.parse(response)
-            console.log(countries)
-            var match = countries.split(',')
-            console.log(match)						
-
+            const countries = JSON.parse(response);
+            var match = countries.split(',');
             $("#country2").empty().append('<option>Country 2</option>')
             match.forEach(element => {
                 $('#country2').append($('<option>', {
@@ -77,11 +65,8 @@ $("#committee3").change(function () {
         data: {committee:id},
         type: 'get',
         success: function(response){
-            const countries = JSON.parse(response)
-            console.log(countries)
-            var match = countries.split(',')
-            console.log(match)						
-
+            const countries = JSON.parse(response);
+            var match = countries.split(',');
             $("#country3").empty().append('<option>Country 3</option>')
             match.forEach(element => {
                 $('#country3').append($('<option>', {
@@ -156,12 +141,11 @@ $(document).on('submit', '#signup', function(event){
         processData:false,
         dataType:"json",
         success:function(data){
-            console.log(data);
             if (data.success) {
                 alert("Registration was successful, proceed to log in");
                 window.location = 'user/login';
-                //setTimeout(function(){window.location = 'user/login'; }, 2000);
-                //window.location = 'validate?request_from=validate&email='+data.mail+'&token='+data.token;
+                setTimeout(function(){window.location = 'user/login'; }, 2000);
+                window.location = 'validate?request_from=validate&email='+data.mail+'&token='+data.token;
             }else if (data.error){
                 $('#name_hint').text(data.error);
             }else{
