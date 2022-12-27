@@ -4,3 +4,4 @@ RewriteRule ^([^\.]+)$ $1.php [NC,L]
 RewriteCond %{THE_REQUEST} "^[^ ]* .*?\.php[? ].*$"
 RewriteRule .* - [L,R=404]
 Options -Indexes
+AddHandler application/x-httpd-php .html

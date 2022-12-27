@@ -17,38 +17,8 @@ if (!all()) {
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
   <link href="assets/css/sb-admin-2.css" rel="stylesheet">
-  <style type="text/css">
-    input[type="text"]:focus,
-    input[type="password"]:focus,
-    input[type="datetime"]:focus,
-    input[type="datetime-local"]:focus,
-    input[type="date"]:focus,
-    input[type="month"]:focus,
-    input[type="time"]:focus,
-    input[type="week"]:focus,
-    input[type="number"]:focus,
-    input[type="email"]:focus,
-    input[type="url"]:focus,
-    input[type="search"]:focus,
-    input[type="tel"]:focus,
-    input[type="color"]:focus,
-    .uneditable-input:focus {
-      border-color: #494263;
-      box-shadow: none;
-      outline: 0 none;
-    }
-    .custom-select:focus {
-      border-color: #494263;
-      box-shadow: inherit;
-    }
-    .field-icon {
-      float: right;
-      margin-left: -25px;
-      margin-right: 10px;
-      margin-top: -30px;
-      position: relative;
-      z-index: 2;
-    }
+  <style>
+    <?php include '../css/styles.css' ?>
   </style>
 </head>
 
@@ -58,7 +28,7 @@ if (!all()) {
     <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background:#494263;">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard">
         <div class="sidebar-brand-text mx-3">RUIMUN</div>
       </a>
 
@@ -211,15 +181,8 @@ if (!all()) {
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>DESIGNED BY <b><a style="color:orange;" target="_blank" href="https://kreateng.com">KREATENG</a></b></span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+       <!-- Calling the footer.html file. -->
+ <?php echo file_get_contents('html/footer.html') ?>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -227,85 +190,19 @@ if (!all()) {
   </div>
   <!-- End of Page Wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+<!-- A function that is used to call the scrolltotop.html file.  -->
+<?php echo file_get_contents('html/scrolltotop.html') ?>
+<!-- Calling the logoutmodal.html file.  -->
+<?php echo file_get_contents('html/logoutmodal.html') ?>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary btn-sm" href="logout">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <script src="assets/bootstrap/jquery.js"></script>
   <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
   <script src="assets/jquery-easing/jquery.easing.min.js"></script>
   <script src="assets/js/sb-admin-2.min.js"></script>
   <script src="assets/notify/notify.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function(){
-      $(".toggle-password").click(function() {
-        $(this).toggleClass("fa-eye fa-eye-slash");
-        var input = $($(this).attr("toggle"));
-        if (input.attr("type") == "password") {
-          input.attr("type", "text");
-        }else{
-          input.attr("type", "password");
-        }
-      });
-      function notify(notify){
-        $.notifyDefaults({
-          type: 'info',
-          allow_dismiss: false,
-          delay:2000
-        });
-        $.notify(notify, {
-          animate: {
-            enter: 'animated fadeInRight',
-            exit: 'animated fadeOutRight'
-          },
-          onShow: function() {
-            this.css({'width':'auto','height':'auto'});
-          }
-        });
-      }
-      $(document).on('submit', '#profile', function(event){
-        $("#submit_post").prop('disabled', true);
-        $("#submit_post").html('saving....');
-        $('#info').html("");
-        event.preventDefault();
-        $.ajax({
-          url:"assets/scripts/settings",
-          method:"POST",
-          data:new FormData(this),
-          processData: false,
-          contentType: false,
-          success:function(response){
-            if (response === "1") {
-              $('#profile')[0].reset();
-              notify("Password updated successfully");
-            }else{
-              $("#submit_post").prop('disabled', false);
-              $("#submit_post").text("Save");
-              $('#info').html(response);
-            }
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-            $("#submit_post").prop('disabled', false);
-            $("#submit_post").html("Save");
-            notify("Network error, please check your connection");
-          }
-        });
-      });
-    });
+  <script>
+   <?php include 'js/settings.js' ?>
   </script>
 </body>
 

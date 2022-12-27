@@ -18,7 +18,7 @@ if (all()) {
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <style>
-<?php include 'css/authenication.css'; ?>
+<?php include 'css/styles.css'; ?>
 </style>
 <body>
 
@@ -54,37 +54,8 @@ if (all()) {
 	    </div>
   	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){});
-	$('#response').text("");
-	$(document).on('submit', '#signin', function(event){
-		$("#submit").html('<img src="user/assets/images/utility/spinner.gif" class="py-1">&nbsp;&nbsp;processing');
-		$("#submit").prop('disabled', true);
-		$('#response').text("");
-		event.preventDefault();
-		$.ajax({
-			url:"user/assets/scripts/forgot",
-			method:"POST",
-			data:new FormData(this),
-			contentType:false,
-			processData:false,
-			dataType:"json",
-			success:function(data){
-				if (data.success) {
-					window.location = 'resetcode?request_from=reset&email='+data.mail+'&token='+data.token;
-				}else{
-					$('#response').text(data.error);
-					$("#submit").prop('disabled', false);
-					$("#submit").html("Reset");
-				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown) {
-		    	$("#submit").prop('disabled', false);
-				$("#submit").html("Reset");
-				$('#response').text("Network error, please try again");
-		  	}
-		});
-	});
+<script>
+	<?php include 'js/forgot.js' ?>
 </script>
 </body>
 </html>

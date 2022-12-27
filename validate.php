@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <style>
-<?php include 'css/authenication.css'; ?>
+<?php include 'css/styles.css'; ?>
 </style>
 <body>
 
@@ -70,64 +70,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	    </div>
   	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#password_hint').text("");
-		$(document).on('submit', '#validate', function(event){
-			$("#submit").html('<img src="user/assets/images/utility/spinner.gif" class="py-1">&nbsp;&nbsp;validating');
-			$("#submit").prop('disabled', true);
-			$('#password_hint').text("");
-			event.preventDefault();
-			$.ajax({
-				url:"user/assets/scripts/validate",
-				method:"POST",
-				data:new FormData(this),
-				contentType:false,
-				processData:false,
-				dataType:"json",
-				success:function(data){
-					if (data.success) {
-						$(".login-heading").html("Account activated, redirecting...");
-						setTimeout(function(){window.location = 'user/login'; }, 2000);
-					}else{
-						$('#password_hint').text(data.error);
-						$("#submit").prop('disabled', false);
-						$("#submit").html("Activate");
-					}
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-			    	$("#submit").prop('disabled', false);
-					$("#submit").html("Activate");
-					$('#password_hint').text("Network error, please try again");
-			  	}
-			});
-		});
-		$(document).on('click', '.resend', function(event){
-			var id = $(this).attr("id");
-			$(".text-center").html('<img src="user/assets/images/utility/spinner.gif" class="py-1">&nbsp;&nbsp;sending code');
-			$('#password_hint').text("");
-			event.preventDefault();
-			$.ajax({
-				url:"user/assets/scripts/resend",
-				method:"POST",
-				data:{id:id},
-				dataType:"json",
-				success:function(data){
-					if (data.success) {
-						window.location = 'validate?request_from=validate&email='+data.mail+'&token='+data.token;
-					}else{
-						$('#password_hint').text(data.error);
-						$(".text-center").html('Didnt get activation code?&nbsp;<a href="javascript:void(0);" class="resend" id="<?php echo $email."&".$token; ?>" style="color:#7F6610;font-size:14px;font-weight:lighter;">Resend</a>');
-					}
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-			    	$(".text-center").html('Didnt get activation code?&nbsp;<a href="javascript:void(0);" class="resend" id="<?php echo $email."&".$token; ?>" style="color:#7F6610;font-size:14px;font-weight:lighter;">Resend</a>');
-			    	$('#password_hint').text("Network error, please try again");
-			  	}
-			});
-		});
-	});
-	
+<script>
+	<?php include 'js/validate.js' ?>
 </script>
 </body>
 </html>

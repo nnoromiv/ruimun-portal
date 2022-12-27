@@ -63,19 +63,19 @@ color: #777;
 }
 @supports (-ms-ime-align: auto) {
 .form-label-group>label {
-    display: none;
+display: none;
 }
 .form-label-group input::-ms-input-placeholder {
-    color: #777;
+color: #777;
 }
 }
 @media all and (-ms-high-contrast: none),
 (-ms-high-contrast: active) {
 .form-label-group>label {
-    display: none;
+display: none;
 }
 .form-label-group input:-ms-input-placeholder {
-    color: #777;
+color: #777;
 }
 }
 input[type="text"]:focus,
@@ -98,13 +98,16 @@ box-shadow: none;
 outline: 0 none;
 }
 .custom-select{
-    border-radius: 30px;
+border-radius: 30px;
 }
 .custom-select:focus {
 border-color: #494263;
 box-shadow: inherit;
 }
 .form-control{
-    border-radius: 30px;
-    padding: 13px 0 0 13px
+border-radius: 30px;
+padding: 13px 0 0 13px
+}
+#postcolor:hover{
+background:grey;
 }

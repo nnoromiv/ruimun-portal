@@ -41,7 +41,7 @@ echo "string";
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <style>
-<?php include 'css/authenication.css'; ?>
+<?php include 'css/styles.css'; ?>
 </style>
 <body>
 
@@ -77,42 +77,8 @@ echo "string";
 	    </div>
   	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#password_hint').text("");
-		$(document).on('submit', '#validate', function(event){
-			$("#submit").html('<img src="user/assets/images/utility/spinner.gif" class="py-1">&nbsp;&nbsp;validating code');
-			$("#submit").prop('disabled', true);
-			$('#password_hint').text("");
-			event.preventDefault();
-			$.ajax({
-				url:"user/assets/scripts/resetcode",
-				method:"POST",
-				data:new FormData(this),
-				contentType:false,
-				processData:false,
-				dataType:"json",
-				success:function(data){
-					if (data.success) {
-						window.location = 'reset?token='+data.token;
-					}else{
-						$('#password_hint').text(data.error);
-						$("#submit").prop('disabled', false);
-						$("#submit").html("Validate code");
-					}
-				},
-				error: function(XMLHttpRequest, textStatus, errorThrown) {
-			    	$("#submit").prop('disabled', false);
-					$("#submit").html("Validate code");
-					$('#password_hint').text("Network error, please try again");
-			  	}
-			});
-		});
-		$(document).on('click', '.resend', function(event){
-			window.location = 'forgot';
-		});
-	});
-	
+<script>
+	<?php include 'js/resetcode.js' ?>
 </script>
 </body>
 </html>
