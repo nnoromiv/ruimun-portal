@@ -17,8 +17,8 @@ if (!user()) {
 				$amount = clean($row["amount"]);
 				$captured = clean(time_convert($row["captured"]));
 			}
-			if($pay_type == 'regular'){
-			  $type = 'regular';
+			if($pay_type == 'RUN'){
+			  $type = 'RUN';
 			}elseif ($pay_type == 'school') {
 			  $type = 'Secondary school';
 			}elseif ($pay_type == 'foreign') {

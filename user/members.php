@@ -29,99 +29,14 @@ if (!admin()) {
 
 <body id="page-top">
   <div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background:#494263;">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-text mx-3">RUIMUN ADMIN</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item ">
-        <a class="nav-link" href="dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="members">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Members</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="payments">
-          <i class="fas fa-fw fa-money-bill-alt"></i>
-          <span>Payments</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="posts">
-          <i class="fas fa-fw fa-share-square"></i>
-          <span>Posts</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="docs">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Materials</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
+    <!-- Calling the `adminsidebar.html` file. -->
+  <?php echo file_get_contents('html/adminsidebar.html') ?>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
       <!-- Main Content -->
       <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user"></i>&nbsp;
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo get_username(); ?></span>
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="settings">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
+      <!-- Calling the admin top bar.  -->
+      <?php include 'admintopbar.php' ?>
         <!-- Begin Page Content -->
         <div class="container-fluid">
           <h1 class="h3 mb-2 text-gray-800">Registered members</h1>
@@ -152,43 +67,18 @@ if (!admin()) {
           </div>
         </div>
         <!-- /.container-fluid -->
-
       </div>
       <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>DESIGNED BY <b><a style="color:orange;" target="_blank" href="https://kreateng.com">KREATENG</a></b></span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
+     <!-- Calling the footer.html file. -->
+     <?php echo file_get_contents('html/footer.html') ?>
     </div>
     <!-- End of Content Wrapper -->
-
   </div>
   <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary btn-sm" href="logout">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+ <!-- A function that is used to call the scrolltotop.html file.  -->
+ <?php echo file_get_contents('html/scrolltotop.html') ?>
+  <!-- Calling the logoutmodal.html file.  -->
+  <?php echo file_get_contents('html/logoutmodal.html') ?>
 
   <!-- Payment Modal-->
   <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="paymentModalLabel" aria-hidden="true">
@@ -203,7 +93,7 @@ if (!admin()) {
           <form method="POST" id="formActivatePayment">
             <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" readonly>
+              <input type="text" class="form-control" id="name" name='name'readonly>
               <input type="hidden" class="form-control" name="userid" id="userid">
               <input type="hidden" class="form-control" name="paytype" id="paytype">
             </div>
@@ -216,8 +106,15 @@ if (!admin()) {
                 <input type="text" class="form-control" id="trans_id" name="trans_id" required>
             </div>
             <div class="form-group">
-                <label for="amount">Amount</label>
-                <input type="tel" class="form-control" id="amount" name="amount" required>
+                <label for="amount"></label>
+                <select required class="form-control" id="amount" name="amount">
+							  <option value="">Amount</option>
+							  <option value="55000" id="amount" name="amount">Nigerian Delegate (₦55,000)</option>
+							  <!-- <option value="sec_school">Secondary School Delegate (₦20,000)</option> -->
+							  <option value="45000" id="amount" name="amount">Redeemer's University (₦45,000)</option>
+							  <!-- <option value="virtual">Virtual Delegate ($10)</option> -->
+							  <option value="67000" id="amount" name="amount">International Delegate ($150)</option>
+							  </select>
             </div>
             <div class="modal-footer">
               <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
@@ -241,8 +138,8 @@ if (!admin()) {
                 <div class="container">
                     <div class="row">
                       <div class="col">
-                        <p>Name: <span id="name"></span></p>
-                        <p>Email: <span id="email"></span></p>
+                        <p>Name: <span id="my_name"></span></p>
+                        <p>Email: <span id="my_email"></span></p>
                         <p>Phone: <span id="phone"></span></p>
                         <p>Member Type: <span id="type"></span></p>
                         <p>Gender: <span id="gender"></span></p>
@@ -287,171 +184,8 @@ if (!admin()) {
   <script src="assets/datatables/jquery.dataTables.min.js"></script>
   <script src="assets/notify/notify.js"></script>
   <script src="assets/datatables/dataTables.bootstrap4.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      var dataTable = $('#dataTable').DataTable({
-        "processing":true,
-        "serverSide":true,
-        "order":[],
-        "ajax":{
-          url:"assets/scripts/members",
-          type:"POST"
-        },
-        "columnDefs":[
-          {
-            "targets":[0, 1, 2, 3, 4, 5, 6, 7],
-            "orderable":false,
-          },
-        ],
-      });
-
-        $("#dataTable").on("click", ".viewMember", function () {
-            $("#viewdetailsModal").modal("show");           
-            $("#member_details").html($(this).data('name'))
-            $("#name").html($(this).data('name'))
-            $("#email").html($(this).data('email'))
-            $("#phone").html($(this).data('phone'))
-            $("#type").html($(this).data('type'))
-            $("#gender").html($(this).data('gender'))
-            $("#medical").html($(this).data('medical'))
-            $("#experience").html($(this).data('experience'))
-            $("#affiliation").html($(this).data('affiliation'))
-            $("#position").html($(this).data('position'))
-            $("#matric").html($(this).data('matric'))
-            $("#dept").html($(this).data('dept'))
-            $("#referral").html($(this).data('referral'))
-            $("#city").html($(this).data('city'))
-            $("#state").html($(this).data('state'))
-            $("#country").html($(this).data('country'))
-            $("#shirt").html($(this).data('shirt'))
-            $("#diet").html($(this).data('diet'))
-            $("#committee1").html($(this).data('committee1'))
-            $("#committee2").html($(this).data('committee2'))
-            $("#committee3").html($(this).data('committee3'))
-            $("#country1").html($(this).data('country1'))
-            $("#country2").html($(this).data('country2'))
-            $("#country3").html($(this).data('country3'))            
-        })
-
-        $("#dataTable").on("click", ".payment", function () {
-            $("#paymentModal").modal("show");   
-            $("#name").val($(this).data('name'))            
-            $("#email").val($(this).data('email'))
-            $("#paytype").val($(this).data('type'))
-            $("#userid").val($(this).attr('id')) 
-            $("#btnActivatePayment").click(function () {
-              $("#formActivatePayment").validate({
-                  submitHandler: submitformActivatePayment,
-                  errorClass: "invalid",
-              });
-
-              function submitformActivatePayment(e) {
-                  var formData = $("#formActivatePayment").serialize();
-                  $.ajax({
-                      type: "POST",
-                      url: "assets/scripts/activatePayment",
-                      data: formData,
-                      dataType: "json",
-                      beforeSend: function () {
-                          $("#btnActivatePayment").html(
-                              '<i class="fa fa-spinner fa-spin"></i>'
-                          );
-                      },
-                      success: function (response) {
-                          console.log(response);
-                          if (response == "1") {
-                            $("#btnActivatePayment").html("Submit");
-                            notify("Payment Activated");
-                          }
-                          else{
-                            notify(response);
-                            $("#btnActivatePayment").html("Submit");
-                          }
-                      },
-                      error: function (response) {
-                          console.log(response);
-                          $("#btnActivatePayment").html("Submit");
-                          notify(response.responseText);
-                      },
-                  });
-              }
-            })
-          })
-
-
-      $(document).on('click', '.refresh', function(){
-        $("#refresh").html("refreshing.....");
-        dataTable.ajax.reload();
-        setTimeout(function(){
-          $("#refresh").html('<i style="padding-bottom:1px;" class="fas fa-fw fa-sync"></i>&nbsp;Refresh');
-        }, 3000);
-      });
-      function notify(notify){
-          $.notifyDefaults({
-          type: 'info',
-          allow_dismiss: false,
-          delay:2000
-        });
-        $.notify(notify, {
-          animate: {
-            enter: 'animated fadeInRight',
-            exit: 'animated fadeOutRight'
-          },
-          onShow: function() {
-            this.css({'width':'auto','height':'auto'});
-          }
-        });
-      }
-      $(document).on('click', '.active0', function(){
-        var id = $(this).attr('id');
-        var type = 0;
-        if (confirm("De-active member account")) {
-          $.ajax({
-            url:"assets/scripts/active",
-            method:"POST",
-            data:{id:id,type:type},
-            success:function(response){
-              if (response === "1") {
-                notify("Member account de-activated");
-                dataTable.ajax.reload();
-              }else{
-                notify(response);
-              }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-               notify("Network error, please check your connection");
-            }
-          });
-        }else{
-          return false;
-        }
-      });
-      $(document).on('click', '.active1', function(){
-        var id = $(this).attr('id');
-        var type = 1;
-        if (confirm("Activate member account")) {
-          $.ajax({
-            url:"assets/scripts/active",
-            method:"POST",
-            data:{id:id,type:type},
-            success:function(response){
-              if (response === "1") {
-                notify("Member account activated");
-                dataTable.ajax.reload();
-              }else{
-                notify(response);
-              }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-               notify("Network error, please check your connection");
-            }
-          });
-        }else{
-          return false;
-        }
-      });
-      
-    });
+  <script>
+    <?php include 'js/members.js' ?>
   </script>
 </body>
 

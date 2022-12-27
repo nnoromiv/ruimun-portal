@@ -24,54 +24,8 @@ if (!admin()) {
 
 <body id="page-top">
   <div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background:#494263;">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-text mx-3">RUIMUN ADMIN</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item ">
-        <a class="nav-link" href="dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="members">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Members</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="payments">
-          <i class="fas fa-fw fa-money-bill-alt"></i>
-          <span>Payments</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="posts">
-          <i class="fas fa-fw fa-share-square"></i>
-          <span>Posts</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="docs">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Materials</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
+   <!-- Calling the adminsidebar.html file. -->
+    <?php echo file_get_contents('html/adminsidebar.html') ?>
 
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -79,43 +33,8 @@ if (!admin()) {
       <!-- Main Content -->
       <div id="content">
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user"></i>&nbsp;
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo get_username(); ?></span>
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="settings">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
+      <!-- Calling the admin top bar.  -->
+      <?php include 'admintopbar.php' ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -149,15 +68,8 @@ if (!admin()) {
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>DESIGNED BY <b><a style="color:orange;" target="_blank" href="https://kreateng.com">KREATENG</a></b></span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+      <!-- Calling the footer.html file. -->
+      <?php echo file_get_contents('html/footer.html') ?>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -165,23 +77,10 @@ if (!admin()) {
   </div>
   <!-- End of Page Wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary btn-sm" href="logout">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- A function that is used to call the scrolltotop.html file.  -->
+  <?php echo file_get_contents('html/scrolltotop.html') ?>
+  <!-- Calling the logoutmodal.html file.  -->
+  <?php echo file_get_contents('html/logoutmodal.html') ?>
 
   <script src="assets/bootstrap/jquery.js"></script>
   <script src="assets/bootstrap/bootstrap.bundle.min.js"></script>
@@ -190,30 +89,7 @@ if (!admin()) {
   <script src="assets/datatables/jquery.dataTables.min.js"></script>
   <script src="assets/datatables/dataTables.bootstrap4.min.js"></script>
   <script type="text/javascript">
-    $(document).ready(function() {
-      var dataTable = $('#dataTable').DataTable({
-        "processing":true,
-        "serverSide":true,
-        "order":[],
-        "ajax":{
-          url:"assets/scripts/payments",
-          type:"POST"
-        },
-        "columnDefs":[
-          {
-            "targets":[0, 1, 2, 3, 4, 5, 6],
-            "orderable":false,
-          },
-        ],
-      });
-      $(document).on('click', '.refresh', function(){
-        $("#refresh").html("refreshing.....");
-        dataTable.ajax.reload();
-        setTimeout(function(){
-          $("#refresh").html('<i style="padding-bottom:1px;" class="fas fa-fw fa-sync"></i>&nbsp;Refresh');
-        }, 3000);
-      });
-    });
+    <?php include 'js/payments.js' ?>
   </script>
 </body>
 
