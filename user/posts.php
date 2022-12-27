@@ -29,98 +29,15 @@ if (!admin()) {
 
 <body id="page-top">
   <div id="wrapper">
-    <!-- Sidebar -->
-    <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background:#494263;">
-
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="">
-        <div class="sidebar-brand-text mx-3">RUIMUN ADMIN</div>
-      </a>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider my-0">
-
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item ">
-        <a class="nav-link" href="dashboard">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Dashboard</span></a>
-      </li>
-      <li class="nav-item ">
-        <a class="nav-link" href="members">
-          <i class="fas fa-fw fa-users"></i>
-          <span>Members</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="payments">
-          <i class="fas fa-fw fa-money-bill-alt"></i>
-          <span>Payments</span></a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="posts">
-          <i class="fas fa-fw fa-share-square"></i>
-          <span>Posts</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="docs">
-          <i class="fas fa-fw fa-folder"></i>
-          <span>Materials</span></a>
-      </li>
-
-      <!-- Divider -->
-      <hr class="sidebar-divider d-none d-md-block">
-
-      <!-- Sidebar Toggler (Sidebar) -->
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
-
-    </ul>
-    <!-- End of Sidebar -->
-
+   <!-- Calling the adminsidebar.html file. -->
+   <?php echo file_get_contents('html/adminsidebar.html') ?>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
       <!-- Main Content -->
       <div id="content">
 
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-user"></i>&nbsp;
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo get_username(); ?></span>
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="settings">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
+        <!-- Calling the admin top bar.  -->
+        <?php include 'admintopbar.php' ?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -155,15 +72,8 @@ if (!admin()) {
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>DESIGNED BY <b><a style="color:orange;" target="_blank" href="https://kreateng.com">KREATENG</a></b></span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
+    <!-- Calling the footer.html file. -->
+      <?php echo file_get_contents('html/footer.html') ?>
 
     </div>
     <!-- End of Content Wrapper -->
@@ -171,23 +81,12 @@ if (!admin()) {
   </div>
   <!-- End of Page Wrapper -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+  <!-- A function that is used to call the scrolltotop.html file.  -->
+  <?php echo file_get_contents('html/scrolltotop.html') ?>
+  <!-- Calling the logoutmodal.html file.  -->
+  <?php echo file_get_contents('html/logoutmodal.html') ?>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary btn-sm" href="logout">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Body Modal -->
   <div class="modal fade" id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content">
@@ -242,173 +141,8 @@ if (!admin()) {
   <script src="assets/datatables/jquery.dataTables.min.js"></script>
   <script src="assets/notify/notify.js"></script>
   <script src="assets/datatables/dataTables.bootstrap4.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $(document).on('click', '.new', function(event) {
-        $('#postForm')[0].reset();
-        $('#info').html("");
-        $("#submit_post").prop('disabled', false);
-        $("#submit_post").html("Create");
-      });
-      var dataTable = $('#dataTable').DataTable({
-        "processing":true,
-        "serverSide":true,
-        "order":[],
-        "ajax":{
-          url:"assets/scripts/posts",
-          type:"POST"
-        },
-        "columnDefs":[
-          {
-            "targets":[0, 1, 2, 3, 4, 5],
-            "orderable":false,
-          },
-        ],
-      });
-      $(document).on('click', '.refresh', function(){
-        $("#refresh").html("refreshing.....");
-        dataTable.ajax.reload();
-        setTimeout(function(){
-          $("#refresh").html('<i style="padding-bottom:1px;" class="fas fa-fw fa-sync"></i>&nbsp;Refresh');
-        }, 3000);
-      });
-      function notify(notify){
-          $.notifyDefaults({
-          type: 'info',
-          allow_dismiss: false,
-          delay:2000
-        });
-        $.notify(notify, {
-          animate: {
-            enter: 'animated fadeInRight',
-            exit: 'animated fadeOutRight'
-          },
-          onShow: function() {
-            this.css({'width':'auto','height':'auto'});
-          }
-        });
-      }
-      $(document).on('submit', '#postForm', function(event){
-        $("#submit_post").prop('disabled', true);
-        $("#submit_post").html('creating....');
-        $('#info').html("");
-        event.preventDefault();
-        $.ajax({
-          url:"assets/scripts/post",
-          method:"POST",
-          data:new FormData(this),
-          processData: false,
-          contentType: false,
-          success:function(response){
-            if (response === "1") {
-              dataTable.ajax.reload();
-              $('#postForm')[0].reset();
-              $('#postModal').modal('hide');
-              notify("New post created");
-            }else{
-              $("#submit_post").prop('disabled', false);
-              $("#submit_post").text("Create");
-              $('#info').html(response);
-            }
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-            $("#submit_post").prop('disabled', false);
-            $("#submit_post").html("Create");
-            notify("Network error, please check your connection");
-          }
-        });
-      });
-      $(document).on('click', '.remove', function(){
-        var id = $(this).attr('id');
-        if (confirm("Delete post")) {
-          $.ajax({
-            url:"assets/scripts/dpost",
-            method:"POST",
-            data:{id:id},
-            success:function(response){
-              if (response === "1") {
-                notify("Post deleted");
-                dataTable.ajax.reload();
-              }else{
-                notify(response);
-              }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-               notify("Network error, please check your connection");
-            }
-          });
-        }else{
-          return false;
-        }
-      });
-      $(document).on('click', '.publish', function(){
-        var id = $(this).attr('id');
-        if (confirm("Publish post")) {
-          $.ajax({
-            url:"assets/scripts/publish",
-            method:"POST",
-            data:{id:id},
-            success:function(response){
-              if (response === "1") {
-                notify("Post published successfully");
-                dataTable.ajax.reload();
-              }else{
-                notify(response);
-              }
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-               notify("Network error, please check your connection");
-            }
-          });
-        }else{
-          return false;
-        }
-      });
-      $(document).on('click', '.view', function(){
-        var id = $(this).attr('id');
-        $.ajax({
-          url:"assets/scripts/viewpost",
-          method:"POST",
-          data:{id:id},
-          success:function(response){
-            if (response === "3") {
-              notify("This post has been deleted");
-            }else if (response === "4") {
-              notify("You are not logged in, please refresh your page");
-            }else{
-              $('#showPost').modal('show');
-              $("#postbody").html("");
-              $("#postbody").html(response);
-            }
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-             alert("Network error, please check your connection")
-          }
-        });
-      });
-      $(document).on('click', '.comment', function(){
-        var id = $(this).attr('id');
-        $.ajax({
-          url:"assets/scripts/comments",
-          method:"POST",
-          data:{id:id},
-          success:function(response){
-            if (response === "3") {
-              notify("No comments for this post");
-            }else if (response === "4") {
-              notify("You are not logged in, please refresh your page");
-            }else{
-              $('#commentsModal').modal('show');
-              $("#commentsbody").html("");
-              $("#commentsbody").html(response);
-            }
-          },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {
-             notify("Network error, please check your connection");
-          }
-        });
-      });
-    });
+  <script>
+   <?php include 'js/posts.js' ?>
   </script>
 </body>
 

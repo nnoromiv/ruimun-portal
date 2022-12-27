@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('Mail.php');
+// include('Mail.php');
 include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -10,20 +10,20 @@ header("X-Frame-Options: SAMEORIGIN");
 header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
-$servername = "runedung.ipowermysql.com";
-$username = "ruimun_db";
-$password = "Ruimun1#";
+$dbhost = 'localhost';
+$dbuser = "root";
+$password = "nnorom";
 $dbname = "ruimun";
-$connect = mysqli_connect($servername, $username, $password, $dbname);
+$connect = new mysqli($dbhost, $dbuser, $password, $dbname);
 try {
-  $access = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
   $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 catch(PDOException $e){
   echo $e->getMessage();
 }
 define('URL', 'http://localhost/ruimun/');
-define('API_SECRET_KEY', 'sk_test_565dcb3ba1046095667f2fac56d712167d6dfa9d');
+define('API_SECRET_KEY', 'sk_test_565dcb3ba1046095667f2fac56d712167d6dfa9d'); 
 
 if (isset($_GET['committee'])) {
   global $access;
@@ -184,9 +184,9 @@ function getCountries($committee_id){
 
 function signup_mail($name,$email,$code){
   $date = date("Y");
-$sendto = "$name<$email>";
-$sendfrom = "RUIMUN<payments@ruimun.org>";
-$sendsubject = "Your Account Activation Code";
+  $sendto = "$name<$email>";
+  $sendfrom = "RUIMUN<payments@ruimun.org>";
+  $sendsubject = "Account Activation Code";
 
   $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
               Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
@@ -202,27 +202,29 @@ $sendsubject = "Your Account Activation Code";
                 <p>Copyright © RUIMUN '.$date.'</p>
               </div>
             </body>';
-    //send message to customers
-$message = new Mail_mime();
-$message->setHTMLBody($body);
-$body = $message->get();
-$extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-$headers = $message->headers($extraheaders);
-$mail = Mail::factory("mail");
-    if ($mail->send("$sendto", $headers, $body)) {
-      return true;
-    }else{
-      return false;
-    }
+    // send message to customers
+  $message = new Mail_mime();
+  $message->setHTMLBody($body);
+  $body = $message->get();
+  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
+  $headers = $message->headers($extraheaders);
+  $mail = Mail::factory("mail");
+      if ($mail->send("$sendto", $headers, $body)) {
+        return true;
+      }else{
+        return false;
+      }
 }
+
+
 function reset_mail($name,$email,$code){
   $date = date("Y");
-$sendto = "$name<$email>";
-$sendfrom = "RUIMUN<payments@ruimun.org>";
-$sendsubject = "Your Password Reset Code";
+  $sendto = "$name<$email>";
+  $sendfrom = "RUIMUN<payments@ruimun.org>";
+  $sendsubject = "Password Reset Code";
 
   $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
-              Hi '.$name.', you requested a passsword reset,
+              Hi '.$name.', you requested a password reset,
               <p>Your account reset code is:</p>
               <h4 style="font-weight:bold;">'.$code.'</h4>
               <br />
@@ -238,16 +240,16 @@ $sendsubject = "Your Password Reset Code";
               </div>
             </body>';
     //send message to customers
-$message = new Mail_mime();
-$message->setHTMLBody($body);
-$body = $message->get();
-$extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-$headers = $message->headers($extraheaders);
-$mail = Mail::factory("mail");
-    if ($mail->send("$sendto", $headers, $body)) {
-      return true;
-    }else{
-      return false;
-    }
+  $message = new Mail_mime();
+  $message->setHTMLBody($body);
+  $body = $message->get();
+  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
+  $headers = $message->headers($extraheaders);
+  $mail = Mail::factory("mail");
+      if ($mail->send("$sendto", $headers, $body)) {
+        return true;
+      }else{
+        return false;
+      }
 }
 ?>
