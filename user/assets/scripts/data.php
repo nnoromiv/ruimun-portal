@@ -10,7 +10,7 @@ header("X-Frame-Options: SAMEORIGIN");
 header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
-$dbhost = 'cloudsways';
+$dbhost = '139.59.172.203';
 $dbuser = "uxkjjugyaj";
 $password = "4ZffQVN3xM";
 $dbname = "uxkjjugyaj";
