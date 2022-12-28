@@ -10,10 +10,10 @@ header("X-Frame-Options: SAMEORIGIN");
 header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
-$dbhost = 'localhost';
-$dbuser = "root";
-$password = "nnorom";
-$dbname = "ruimun";
+$dbhost = 'cloudsways';
+$dbuser = "uxkjjugyaj";
+$password = "4ZffQVN3xM";
+$dbname = "uxkjjugyaj";
 $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
 try {
   $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
