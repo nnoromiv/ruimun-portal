@@ -1,5 +1,6 @@
 <?php
 session_start();
+// include('Mail/mail.php');
 include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -10,22 +11,41 @@ header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
 $dbhost = '139.59.172.203';
-$dbhostlocal = 'localhost';
 $dbuser = "uxkjjugyaj";
-$dbuserlocal = 'root';
 $password = "4ZffQVN3xM";
-$passwordlocal = '';
 $dbname = "uxkjjugyaj";
+
+//Localhost Params
+$dbhostlocal = 'localhost';
+$dbuserlocal = 'root';
+$passwordlocal = '';
 $dbnamelocal = 'ruimun';
-// $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
-$connect = new mysqli($dbhostlocal, $dbuserlocal, $passwordlocal, $dbnamelocal);
-try {
-  // $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
-  $access = new PDO("mysql:host=$dbhostlocal;dbname=$dbnamelocal", $dbuserlocal, $passwordlocal);
-  $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$local = 0;
+
+if($local === 0){
+  $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
+}else {
+  $connect = new mysqli($dbhostlocal, $dbuserlocal, $passwordlocal, $dbnamelocal);
+};
+
+
+if ($local === 0){
+  try {
+    $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
+    $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+  catch(PDOException $e){
+    echo $e->getMessage();
   }
-catch(PDOException $e){
-  echo $e->getMessage();
+} else {
+  try {
+    $access = new PDO("mysql:host=$dbhostlocal;dbname=$dbnamelocal", $dbuserlocal, $passwordlocal);
+    $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+  catch(PDOException $e){
+    echo $e->getMessage();
+  }
 }
 
 define('URL', 'http://localhost/ruimun/');
