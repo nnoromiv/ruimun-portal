@@ -11,17 +11,24 @@ header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
 $dbhost = '139.59.172.203';
+$dbhostlocal = 'localhost';
 $dbuser = "uxkjjugyaj";
+$dbuserlocal = 'root';
 $password = "4ZffQVN3xM";
+$passwordlocal = 'nnorom';
 $dbname = "uxkjjugyaj";
-$connect = new mysqli($dbhost, $dbuser, $password, $dbname);
+$dbnamelocal = 'ruimun';
+//$connect = new mysqli($dbhost, $dbuser, $password, $dbname);
+$connect = new mysqli($dbhostlocal, $dbuserlocal, $passwordlocal, $dbnamelocal);
 try {
-  $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
+  //$access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
+  $access = new PDO("mysql:host=$dbhostlocal;dbname=$dbnamelocal", $dbuserlocal, $passwordlocal);
   $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 catch(PDOException $e){
   echo $e->getMessage();
 }
+
 define('URL', 'http://localhost/ruimun/');
 define('API_SECRET_KEY', 'sk_test_565dcb3ba1046095667f2fac56d712167d6dfa9d'); 
 

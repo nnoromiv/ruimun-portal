@@ -79,10 +79,10 @@ $committee =  getCommittee();
 							<span id="position_hint" style="font-size:15px;color:darkred;"></span>
 						</div>
 						<div class="form-group runstudent">
-							<input type="text" id="matric" name="matric" class="form-control" placeholder="Matric Number">
+							<input type="text" id="matric" name="matric" class="form-control" placeholder="Matric Number" required>
 						</div>
 						<div class="form-group runstudent">
-							<input type="text" id="department" name="department" class="form-control" placeholder="Department">
+							<input type="text" id="department" name="department" class="form-control" placeholder="Department" required>
 						</div>
 						<div class="form-group">
 							<input type="text" id="city" name="city" class="form-control" placeholder="City" required autofocus>
