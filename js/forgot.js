@@ -22,6 +22,7 @@ $(document).ready(function(){});
 				}
 			},
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(`The error is ${XMLHttpRequest} with a status ${textStatus}, throw it as ${errorThrown}`);
 		    	$("#submit").prop('disabled', false);
 				$("#submit").html("Reset");
 				$('#response').text("Network error, please try again");

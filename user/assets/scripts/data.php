@@ -1,6 +1,5 @@
 <?php
 session_start();
-// include('Mail.php');
 include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -15,13 +14,13 @@ $dbhostlocal = 'localhost';
 $dbuser = "uxkjjugyaj";
 $dbuserlocal = 'root';
 $password = "4ZffQVN3xM";
-$passwordlocal = 'nnorom';
+$passwordlocal = '';
 $dbname = "uxkjjugyaj";
 $dbnamelocal = 'ruimun';
-//$connect = new mysqli($dbhost, $dbuser, $password, $dbname);
+// $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
 $connect = new mysqli($dbhostlocal, $dbuserlocal, $passwordlocal, $dbnamelocal);
 try {
-  //$access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
+  // $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
   $access = new PDO("mysql:host=$dbhostlocal;dbname=$dbnamelocal", $dbuserlocal, $passwordlocal);
   $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
@@ -199,7 +198,6 @@ function signup_mail($name,$email,$code){
               Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
               <p>Your account activation code is:</p>
               <h4 style="font-weight:bold;">'.$code.'</h4>
-              <br />
               <div>
                 <p>Please note:</p>
                 <p>For security purposes, do not disclose the contents of this email.</p>
@@ -234,7 +232,6 @@ function reset_mail($name,$email,$code){
               Hi '.$name.', you requested a password reset,
               <p>Your account reset code is:</p>
               <h4 style="font-weight:bold;">'.$code.'</h4>
-              <br />
               <div>
                 <p>Please note:</p>
                 <p>This code expires after 24 hours<br>

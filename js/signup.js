@@ -144,8 +144,8 @@ $(document).on('submit', '#signup', function(event){
             if (data.success) {
                 alert("Registration was successful, proceed to log in");
                 window.location = 'user/login';
-                setTimeout(function(){window.location = 'user/login'; }, 2000);
-                window.location = 'validate?request_from=validate&email='+data.mail+'&token='+data.token;
+                // setTimeout(function(){window.location = 'user/login'; }, 2000);
+                // window.location = 'validate?request_from=validate&email='+data.mail+'&token='+data.token;
             }else if (data.error){
                 $('#name_hint').text(data.error);
             }else{
@@ -159,8 +159,7 @@ $(document).on('submit', '#signup', function(event){
             }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            // alert("Network error, please try again");
-            console.log(`${XMLHttpRequest-[textStatus], errorThrown}`);
+            alert("Network error, please try again");
             $("#submit").prop('disabled', false);
             $("#submit").html("Sign Up");
             }

@@ -51,6 +51,7 @@ $(document).ready(function(){
                 }
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(`${XMLHttpRequest-[textStatus], errorThrown}`);
                 $("#submit").prop('disabled', false);
                 $("#submit").html("Reset password");
                 $('#password_hint').text("Network error, please try again");
