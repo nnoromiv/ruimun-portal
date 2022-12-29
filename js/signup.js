@@ -159,7 +159,8 @@ $(document).on('submit', '#signup', function(event){
             }
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("Network error, please try again");
+            // alert("Network error, please try again");
+            console.log(`${XMLHttpRequest-[textStatus], errorThrown}`);
             $("#submit").prop('disabled', false);
             $("#submit").html("Sign Up");
             }
