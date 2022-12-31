@@ -1,6 +1,9 @@
 <?php
 session_start();
-// include('Mail/mail.php');
+//Suppresses Warning errors
+// error_reporting(E_ALL ^ E_WARNING);
+@include('./PHPMailer/PHPMailer.php');
+include('Mail.php');
 include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
@@ -21,7 +24,8 @@ $dbuserlocal = 'root';
 $passwordlocal = '';
 $dbnamelocal = 'ruimun';
 
-$local = 0;
+$local = 1;
+$sent = 0;
 
 if($local === 0){
   $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
@@ -85,7 +89,7 @@ function clean($string){
   $string = trim($string);
   $string = stripslashes($string);
   $string = htmlspecialchars($string, ENT_QUOTES);
-  $string = filter_var($string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+  $string = filter_var($string, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
   $string = mysqli_real_escape_string($connect, $string);
   return $string;
 }
@@ -242,38 +246,56 @@ function signup_mail($name,$email,$code){
 }
 
 
-function reset_mail($name,$email,$code){
-  $date = date("Y");
-  $sendto = "$name<$email>";
-  $sendfrom = "RUIMUN<payments@ruimun.org>";
-  $sendsubject = "Password Reset Code";
+function reset_mail($name,$email,$code,$token){
+try{
+global $mail;
+global $sent;
+//Server settings
+$mail->SMTPDebug = 2;                      //Enable verbose debug output
+$mail->isSMTP();                                            //Send using SMTP
+$mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+$mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+$mail->Username   = 'nnorom.prince44@gmail.com';                     //SMTP username
+$mail->Password   = 'gxomzlaxqopgshzk';                               //SMTP password
+$mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+$mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+$date = date("Y");
+$sendfrom = "nnorom.prince44@gmail.com";
+$sendsubject = "Password Reset Code";
+$body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
+            Hi '.$name.', you requested a password reset,
+            <p>Click the Reset button and insert the code given to you to reset your password</p>
+            <a class="btn btn-lg btn-block btn-login font-weight-bold" 
+            href="resetcode?request_from=reset&email='.$email.'&token='.$token.'"
+            style="background:#494263;color:white;border-radius:30px;padding:5px 10px;" type="button">
+            Reset
+            </a>
+            <p>Your account reset code is:</p>
+            <h4 style="font-weight:bold;">'.$code.'</h4>
+            <div>
+              <p>Please note:</p>
+              <p>This code expires after 24 hours.
+              For security purposes, do not disclose the contents of this email
+              </p>
+            </div>
+            <div>
+              <p>Thank You</p>
+              <p>Copyright © RUIMUN '.$date.'</p>
+            </div>
+          </body>';
+//Recipients
+$mail->setFrom($sendfrom, 'RUIMUN');
+$mail->addAddress($email, $name);     //Add a recipient
+$mail->isHTML(true);
+$mail->Subject = $sendsubject;
+$mail->Body = $body;
 
-  $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
-              Hi '.$name.', you requested a password reset,
-              <p>Your account reset code is:</p>
-              <h4 style="font-weight:bold;">'.$code.'</h4>
-              <div>
-                <p>Please note:</p>
-                <p>This code expires after 24 hours<br>
-                For security purposes, do not disclose the contents of this email
-                </p>
-              </div>
-              <div>
-                <p>Thank You</p>
-                <p>Copyright © RUIMUN '.$date.'</p>
-              </div>
-            </body>';
-    //send message to customers
-  $message = new Mail_mime();
-  $message->setHTMLBody($body);
-  $body = $message->get();
-  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-  $headers = $message->headers($extraheaders);
-  $mail = Mail::factory("mail");
-      if ($mail->send("$sendto", $headers, $body)) {
-        return true;
-      }else{
-        return false;
-      }
+$mail->send();
+    $sent = 1;
+    echo "Message is sent, {$sent}";
+}catch (Exception $e){
+  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    $sent = 0;
+}
 }
 ?>

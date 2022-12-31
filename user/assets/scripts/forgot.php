@@ -28,7 +28,7 @@ if (!all()) {
     			        $update = mysqli_query($connect, "UPDATE reset_password SET code='$code',token='$token',reset_time='$time' WHERE email='$email' LIMIT 1");
     			        if($update){
     			        	//sendmail
-    			        	reset_mail($name,$email,$code);
+    			        	reset_mail($name,$email,$code,$token);
     			        	$_SESSION['reset'] = 1;
     			            $data = array('success'=>true,'mail'=>$email,'token'=>$token);
     			        }else{
@@ -38,7 +38,7 @@ if (!all()) {
     			        $insert = mysqli_query($connect, "INSERT INTO reset_password (user_id, email, code, token, reset_time) VALUES ('$user_id', '$email', '$code', '$token', '$time')");
     			        if($insert){
     			            //sendmail
-				    	reset_mail($name,$email,$code);
+				    	reset_mail($name,$email,$code,$token);
     			            $data = array('success'=>true,'mail'=>$email,'token'=>$token);
     			        }else{
     			            $data = array('error'=>'Error encountered, try again');
@@ -48,12 +48,13 @@ if (!all()) {
 			    	$data = array('error'=>'Sorry, there is no account associated with this email');
 			    }
 			}else{
-   				$data = array('error'=>"Invalid request, please refresh your page");
+   				$data = array('error'=>"Invalid request, on $_POST[email]");
    			}
 		}else{
-			$data = array('error'=>"Invalid request, please refresh your page");
+			$data = array('error'=>"Invalid request, on $_SESSION[token], && $_POST[token]");
 		}
-		echo json_encode($data);
+		$data = json_encode($data);
+		echo $data;
 	}		
 }
 mysqli_close($connect);
