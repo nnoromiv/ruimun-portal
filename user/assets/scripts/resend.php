@@ -30,7 +30,7 @@ if (!user()) {
 						$array = array('token'=>$new_token,'code'=>$new_code,'email'=>$email);
 						if ($update->execute($array)) {
 							//send mail after update
-				    	signup_mail($name,$email,$new_code);
+				    	// signup_mail($name,$email,$new_code);
 	                  		$data = array('success'=>true,'mail'=>$email,'token'=>$new_token);
 						}
 					}

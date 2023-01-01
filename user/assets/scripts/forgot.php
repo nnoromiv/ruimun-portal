@@ -1,5 +1,6 @@
 <?php
 require_once 'data.php';
+include('./PHPMailer/PHPMailer.php');
 header('Content-Type: application/json');
 if (!all()) {
 	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' && $_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -28,7 +29,8 @@ if (!all()) {
     			        $update = mysqli_query($connect, "UPDATE reset_password SET code='$code',token='$token',reset_time='$time' WHERE email='$email' LIMIT 1");
     			        if($update){
     			        	//sendmail
-    			        	reset_mail($name,$email,$code,$token);
+							$reset__Mail = new Mailing;
+    			        	$reset__Mail->reset_mail($name,$email,$code,$token);
     			        	$_SESSION['reset'] = 1;
     			            $data = array('success'=>true,'mail'=>$email,'token'=>$token);
     			        }else{
@@ -38,7 +40,8 @@ if (!all()) {
     			        $insert = mysqli_query($connect, "INSERT INTO reset_password (user_id, email, code, token, reset_time) VALUES ('$user_id', '$email', '$code', '$token', '$time')");
     			        if($insert){
     			            //sendmail
-				    	reset_mail($name,$email,$code,$token);
+							$reset__Mail = new Mailing;
+    			        	$reset__Mail->reset_mail($name,$email,$code,$token);
     			            $data = array('success'=>true,'mail'=>$email,'token'=>$token);
     			        }else{
     			            $data = array('error'=>'Error encountered, try again');

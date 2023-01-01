@@ -7,41 +7,98 @@ use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
 require 'vendor/autoload.php';
+require('vendor/phpmailer/phpmailer/src/PHPMailer.php');
+require('vendor/phpmailer/phpmailer/src/SMTP.php');
+require('vendor/phpmailer/phpmailer/src/Exception.php');
 
-//Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
+class Mailing {
+public $mail;
 
-// try {
-//     //Server settings
-//     $mail->SMTPDebug = 2;                      //Enable verbose debug output
-//     $mail->isSMTP();                                            //Send using SMTP
-//     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-//     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-//     $mail->Username   = 'nnorom.prince44@gmail.com';                     //SMTP username
-//     $mail->Password   = 'gxomzlaxqopgshzk';                               //SMTP password
-//     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
-//     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+//Server settings    
+public static $MAIL_HOST = "smtp.gmail.com"; //Set the SMTP server to send through
+public static $MAIL_NAME = "nnorom.prince44@gmail.com"; //SMTP username
+public static $MAIL_PASSWORD  = "gxomzlaxqopgshzk"; //SMTP password
+public static $MAIL_PORT = 587; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-//     //Recipients
-//     $mail->setFrom('no-reply@nnorom.com', 'Mailer');
-//     $mail->addAddress('nnorom.peace44@gmail.com', 'Peace User');     //Add a recipient
-//     // $mail->addAddress('ellen@example.com');               //Name is optional
-//     // $mail->addReplyTo('info@example.com', 'Information');
-//     // $mail->addCC('cc@example.com');
-//     // $mail->addBCC('bcc@example.com');
+public function initialize(){
+    //Create an instance; passing `true` enables exceptions
+    $this->mail = new PHPMailer();
+    $this->mail->isSMTP(); //Send using SMTP
+    $this->mail->Host = Mailing::$MAIL_HOST; //initialize the SMTP server to send through
+    $this->mail->Port = Mailing::$MAIL_PORT; //initialize the PORT server to send through
+    $this->mail->SMTPAuth = true; //Enable SMTP authentication
+    $this->mail->Username = Mailing::$MAIL_NAME; //initialize username
+    $this->mail->Password = Mailing::$MAIL_PASSWORD ; //initialize password
+    $this->mail->SMTPDebug = 2; //Enable verbose debug output   
+    $this->mail->SMTPSecure = 'tls'; //Enable implicit TLS encryption
+}
+public function reset_mail($name,$email,$code,$token){
+    $this->initialize();
+    $date = date("Y");
+    $sendfrom = "nnorom.prince44@gmail.com";
+    $sendsubject = "Password Reset Code";
+    $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
+                Hi '.$name.', you requested a password reset,
+                <p>Click the Reset button and insert the code given to you to reset your password</p>
+                <a class="btn btn-lg btn-block btn-login font-weight-bold" 
+                href="resetcode?request_from=reset&email='.$email.'&token='.$token.'"
+                style="background:#494263;color:white;border-radius:30px;padding:5px 10px;" type="button">
+                Reset
+                </a>
+                <p>Your account reset code is:</p>
+                <h4 style="font-weight:bold;">'.$code.'</h4>
+                <div>
+                    <p>Please note:</p>
+                    <p>This code expires after 24 hours.
+                    For security purposes, do not disclose the contents of this email
+                    </p>
+                </div>
+                <div>
+                    <p>Thank You</p>
+                    <p>Copyright © RUIMUN '.$date.'</p>
+                </div>
+                </body>';
+            //Recipients
+            $this->mail->isHTML(true);
+            $this->mail->Subject = $sendsubject;
+            $this->mail->Body = $body;
+            $this->mail->setFrom($sendfrom, 'RUIMUN');
+            $this->mail->addAddress($email, $name);     //Add a recipient
+            if ($this->mail->send()){
+                echo "Message is sent";
+            }else{
+            echo "Message not sent";
+            }
+    }
 
-//     //Attachments
-//     // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-//     // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
-//     //Content
-//     $mail->isHTML(true);                                  //Set email format to HTML
-//     $mail->Subject = 'Here is the subject';
-//     $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-//     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
-
-//     $mail->send();
-//     echo 'Message has been sent';
-// } catch (Exception $e) {
-//     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-// }
+public function signup_mail($name,$email,$code){
+        $this->initialize();
+        $date = date("Y");
+        $sendfrom = "nnorom.prince44@gmail.com";
+        $sendsubject = "Account Activation Code";
+        $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
+                    Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
+                    <p>Your account activation code is:</p>
+                    <h4 style="font-weight:bold;">'.$code.'</h4>
+                    <div>
+                    <p>Please note:</p>
+                    <p>For security purposes, do not disclose the contents of this email.</p>
+                    </div>
+                    <div>
+                    <p>Thank You</p>
+                    <p>Copyright © RUIMUN '.$date.'</p>
+                    </div>
+                </body>';
+        //Recipients
+        $this->mail->isHTML(true);
+        $this->mail->Subject = $sendsubject;
+        $this->mail->Body = $body;
+        $this->mail->setFrom($sendfrom, 'RUIMUN');
+        $this->mail->addAddress($email, $name);
+        if ($this->mail->send()){
+            echo "Message is sent";
+        }else{
+        echo "Message not sent";
+        }
+ }
+}

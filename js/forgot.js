@@ -14,7 +14,7 @@ $(document).ready(function(){});
 			dataType:"json",
 			success:function(data){
 				if (data.success = "true") {
-					window.location = 'resetcode?request_from=reset&email='+data.mail+'&token='+data.token;
+					// window.location = 'resetcode?request_from=reset&email='+data.mail+'&token='+data.token;
 				}else{
 					$('#response').text(data.error);
 					$("#submit").prop('disabled', false);
