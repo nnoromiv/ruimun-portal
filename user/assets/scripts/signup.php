@@ -1,5 +1,6 @@
 <?php
 require_once 'data.php';
+include('./PHPMailer/PHPMailer.php');
 header('Content-Type: application/json');
 if (!all()) {
 	if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' && $_SERVER['REQUEST_METHOD'] == 'POST'){
@@ -109,49 +110,31 @@ if (!all()) {
 				    if ($stmt->execute()) {
 						$zero = "0";
 						$one = "1";
-				    	//send  mail
-                        $user_name= ucfirst($user_name);
-						$date = date("Y");
-						$subject = "Your Account Activation Code";		
-						$headers = 'From:RUIMUN<payments@ruimun.org>' . "\r\n"; 
-						$body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
-									Hi '.$user_name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
-									<p>Your account activation code is:</p>
-									<h4 style="font-weight:bold;">'.$code.'</h4>
-									<br />
-									<div>
-										<p>Please note:</p>
-										<p>For security purposes, do not disclose the contents of this email.</p>
-									</div>
-									<div>
-										<p>Thank You</p>
-										<p>Copyright © RUIMUN '.$date.'</p>
-									</div>
-								</body>';
-						$mail_status=mail($user_email, $subject, $body, $headers); 
-						$mail_status = signup_mail($user_name,$user_email,$code);
-						if ($mail_status===true) {
-							$_SESSION['validate'] = 1;
-				    		$data = array('success'=>true,'mail'=>$user_email,'token'=>$token);
-						}
-						else{
-				    		$data = array('false'=>true,'status'=>$mail_status,'token'=>$token);
-						}
-
 						$insert = $access->prepare("INSERT INTO access (user_id, email, password, user_type, captured) VALUES (:user_id, :email, :password, :user_type, :captured)");
 						$insert->bindParam(':user_id', $user_id);
 						$insert->bindParam(':email', $user_email);
 						$insert->bindParam(':password', $password);
 						$insert->bindParam(':user_type', $type);
 						$insert->bindParam(':captured', $captured);
+						if($insert->execute()){
+							$name= ucfirst($user_name);
+							$email = $user_email;
+							$signup__Mail = new Mailing;
+							$signup__Mail->signup_mail($name, $email,$code,$token);
+							$_SESSION['validate'] = 1;
+							$data = array('success'=>true,'mail'=>$email,'token'=>$token);
+						} else{
+								$data = array('false'=>true,'mail'=>$user_email,'token'=>$token);
+							}
+
 						$update = $access->prepare("UPDATE enrollment SET token=:token, status=:zero, code=:code WHERE email=:email AND user_id=:user_id LIMIT 1");
 						$array = array('token'=>$zero,'zero'=>$one,'code'=>$zero,'email'=>$user_email,'user_id'=>$user_id);
-
-						if ($insert->execute() && $update->execute($array)) {
+						
+						if ($update->execute($array)) {
 							unset($_SESSION['validate']);
 							$_SESSION['first_time'] = 1;
 				  			$_SESSION['userid'] = $user_id;
-	                        $_SESSION['type'] = $user_type;
+	                        $_SESSION['type'] = $type;
 	                        $_SESSION['email'] = $user_email;
 	                  		session_regenerate_id(true);
 	                  		$data = array('success'=>true);
@@ -159,9 +142,8 @@ if (!all()) {
 						else{
 							 	$data = array('false'=>true,'error'=>"Server error, please try again later");
 							}
-
-				    }else{
-				    	$data = array('error'=>"Server error, please try again later");
+			    }else{
+				    	$data = array('error'=>"Did not execute");
 					}
 			    }else{
 			    	$data = array('name'=>$name,'email'=>$mail,'phone'=>$phone,'pass'=>$pass,'pass2'=>$pass2);

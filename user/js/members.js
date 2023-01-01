@@ -116,7 +116,7 @@ $(document).ready(function() {
     $(document).on('click', '.active0', function(){
       var id = $(this).attr('id');
       var type = 0;
-      if (confirm("De-active member account")) {
+      if (confirm("De-activate member account")) {
         $.ajax({
           url:"assets/scripts/active",
           method:"POST",
