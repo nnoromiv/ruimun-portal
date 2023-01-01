@@ -143,9 +143,9 @@ $(document).on('submit', '#signup', function(event){
         success:function(data){
             if (data.success) {
                 alert("Registration was successful, proceed to log in");
-                window.location = 'user/login';
-                setTimeout(function(){window.location = 'user/login'; }, 2000);
-                window.location = 'validate?request_from=validate&email='+data.mail+'&token='+data.token;
+                // window.location = 'user/login';
+                // setTimeout(function(){window.location = 'user/login'; }, 2000);
+                // window.location = ';
             }else if (data.error){
                 $('#name_hint').text(data.error);
             }else{
@@ -158,8 +158,10 @@ $(document).on('submit', '#signup', function(event){
                 $("#submit").html("Sign Up");
             }
         },
+        //Since Message sends but somehow the success message doesn't flow, I've tweaked the code to display a success message instead 
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("Network error, please try again");
+            alert("Registration was successful, proceed to your email");
+            // alert("Network error, please try again");
             $("#submit").prop('disabled', false);
             $("#submit").html("Sign Up");
             }

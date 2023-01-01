@@ -1,7 +1,5 @@
 <?php
 session_start();
-// include('Mail.php');
-include('Mail/mime.php');
 header("X-XSS-Protection: 1; mode=block");
 header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
 header("Cache-Control: post-check=0, pre-check=0", false);
@@ -10,18 +8,45 @@ header("X-Frame-Options: SAMEORIGIN");
 header("Strict-Transport-Security: max-age=16070400");
 header('X-Content-Type-Options: nosniff');
 date_default_timezone_set("Africa/Lagos");
-$dbhost = 'localhost';
-$dbuser = "root";
-$password = "nnorom";
-$dbname = "ruimun";
-$connect = new mysqli($dbhost, $dbuser, $password, $dbname);
-try {
-  $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
-  $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$dbhost = '139.59.172.203';
+$dbuser = "uxkjjugyaj";
+$password = "4ZffQVN3xM";
+$dbname = "uxkjjugyaj";
+
+//Localhost Params
+$dbhostlocal = 'localhost';
+$dbuserlocal = 'root';
+$passwordlocal = '';
+$dbnamelocal = 'ruimun';
+
+$local = 0;
+
+if($local === 0){
+  $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
+}else {
+  $connect = new mysqli($dbhostlocal, $dbuserlocal, $passwordlocal, $dbnamelocal);
+};
+
+
+if ($local === 0){
+  try {
+    $access = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $password);
+    $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+  catch(PDOException $e){
+    echo $e->getMessage();
   }
-catch(PDOException $e){
-  echo $e->getMessage();
+} else {
+  try {
+    $access = new PDO("mysql:host=$dbhostlocal;dbname=$dbnamelocal", $dbuserlocal, $passwordlocal);
+    $access->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    }
+  catch(PDOException $e){
+    echo $e->getMessage();
+  }
 }
+
 define('URL', 'http://localhost/ruimun/');
 define('API_SECRET_KEY', 'sk_test_565dcb3ba1046095667f2fac56d712167d6dfa9d'); 
 
@@ -59,7 +84,7 @@ function clean($string){
   $string = trim($string);
   $string = stripslashes($string);
   $string = htmlspecialchars($string, ENT_QUOTES);
-  $string = filter_var($string, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+  $string = filter_var($string, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH);
   $string = mysqli_real_escape_string($connect, $string);
   return $string;
 }
@@ -180,76 +205,5 @@ function getCountries($committee_id){
   $result = $statement->fetchAll();
   //$countries = explode(",", $result);
   return $result;
-}
-
-function signup_mail($name,$email,$code){
-  $date = date("Y");
-  $sendto = "$name<$email>";
-  $sendfrom = "RUIMUN<payments@ruimun.org>";
-  $sendsubject = "Account Activation Code";
-
-  $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
-              Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
-              <p>Your account activation code is:</p>
-              <h4 style="font-weight:bold;">'.$code.'</h4>
-              <br />
-              <div>
-                <p>Please note:</p>
-                <p>For security purposes, do not disclose the contents of this email.</p>
-              </div>
-              <div>
-                <p>Thank You</p>
-                <p>Copyright © RUIMUN '.$date.'</p>
-              </div>
-            </body>';
-    // send message to customers
-  $message = new Mail_mime();
-  $message->setHTMLBody($body);
-  $body = $message->get();
-  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-  $headers = $message->headers($extraheaders);
-  $mail = Mail::factory("mail");
-      if ($mail->send("$sendto", $headers, $body)) {
-        return true;
-      }else{
-        return false;
-      }
-}
-
-
-function reset_mail($name,$email,$code){
-  $date = date("Y");
-  $sendto = "$name<$email>";
-  $sendfrom = "RUIMUN<payments@ruimun.org>";
-  $sendsubject = "Password Reset Code";
-
-  $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
-              Hi '.$name.', you requested a password reset,
-              <p>Your account reset code is:</p>
-              <h4 style="font-weight:bold;">'.$code.'</h4>
-              <br />
-              <div>
-                <p>Please note:</p>
-                <p>This code expires after 24 hours<br>
-                For security purposes, do not disclose the contents of this email
-                </p>
-              </div>
-              <div>
-                <p>Thank You</p>
-                <p>Copyright © RUIMUN '.$date.'</p>
-              </div>
-            </body>';
-    //send message to customers
-  $message = new Mail_mime();
-  $message->setHTMLBody($body);
-  $body = $message->get();
-  $extraheaders = array("From"=>"$sendfrom", "Subject"=>"$sendsubject");
-  $headers = $message->headers($extraheaders);
-  $mail = Mail::factory("mail");
-      if ($mail->send("$sendto", $headers, $body)) {
-        return true;
-      }else{
-        return false;
-      }
 }
 ?>

@@ -29,8 +29,8 @@ if (!user()) {
 						$update = $access->prepare("UPDATE enrollment SET token=:token,code=:code WHERE email=:email LIMIT 1");
 						$array = array('token'=>$new_token,'code'=>$new_code,'email'=>$email);
 						if ($update->execute($array)) {
-							//send mail after update
-				    	signup_mail($name,$email,$new_code);
+							$signup__Mail = new Mailing;
+							$signup__Mail->signup_mail($name,$email,$code,$token);
 	                  		$data = array('success'=>true,'mail'=>$email,'token'=>$new_token);
 						}
 					}

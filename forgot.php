@@ -1,5 +1,5 @@
 <?php
-require_once 'user/assets/scripts/data.php';
+include 'user/assets/scripts/data.php';
 if (all()) {
   redirect("user/login");
 }
@@ -54,7 +54,7 @@ if (all()) {
 	    </div>
   	</div>
 </div>
-<script>
+<script type="text/javascript">
 	<?php include 'js/forgot.js' ?>
 </script>
 </body>
