@@ -119,11 +119,8 @@ if (!all()) {
 						if($insert->execute()){
 							$name= ucfirst($user_name);
 							$email = $user_email;
-							echo $name;
-							echo $email;
-							echo $code;
 							$signup__Mail = new Mailing;
-							$signup__Mail->signup_mail($name, $email, $code);
+							$signup__Mail->signup_mail($name, $email,$code,$token);
 							$_SESSION['validate'] = 1;
 							$data = array('success'=>true,'mail'=>$email,'token'=>$token);
 						} else{
@@ -133,7 +130,7 @@ if (!all()) {
 						$update = $access->prepare("UPDATE enrollment SET token=:token, status=:zero, code=:code WHERE email=:email AND user_id=:user_id LIMIT 1");
 						$array = array('token'=>$zero,'zero'=>$one,'code'=>$zero,'email'=>$user_email,'user_id'=>$user_id);
 						
-						if ($insert->execute() && $update->execute($array)) {
+						if ($update->execute($array)) {
 							unset($_SESSION['validate']);
 							$_SESSION['first_time'] = 1;
 				  			$_SESSION['userid'] = $user_id;

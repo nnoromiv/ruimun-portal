@@ -71,13 +71,19 @@ public function reset_mail($name,$email,$code,$token){
             }
     }
 
-public function signup_mail($name,$email,$code){
+public function signup_mail($name,$email,$code,$token){
         $this->initialize();
         $date = date("Y");
         $sendfrom = "nnorom.prince44@gmail.com";
         $sendsubject = "Account Activation Code";
         $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
                     Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
+                    <p>Click the Validate button and insert the code given to you to validate your access</p>
+                    <a class="btn btn-lg btn-block btn-login font-weight-bold" 
+                    href="validate?request_from=validate&email='.$email.'&token='.$token.'"
+                    style="background:#494263;color:white;border-radius:30px;padding:5px 10px;" type="button">
+                    Validate Account
+                    </a>
                     <p>Your account activation code is:</p>
                     <h4 style="font-weight:bold;">'.$code.'</h4>
                     <div>
