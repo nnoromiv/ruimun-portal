@@ -20,7 +20,7 @@ $dbuserlocal = 'root';
 $passwordlocal = '';
 $dbnamelocal = 'ruimun';
 
-$local = 1;
+$local = 0;
 
 if($local === 0){
   $connect = new mysqli($dbhost, $dbuser, $password, $dbname);
