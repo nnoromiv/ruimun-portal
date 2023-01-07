@@ -16,8 +16,8 @@ public $mail;
 
 //Server settings    
 public static $MAIL_HOST = "smtp.gmail.com"; //Set the SMTP server to send through
-public static $MAIL_NAME = "nnorom.prince44@gmail.com"; //SMTP username
-public static $MAIL_PASSWORD  = "gxomzlaxqopgshzk"; //SMTP password
+public static $MAIL_NAME = "ruimun@run.edu.ng"; //SMTP username
+public static $MAIL_PASSWORD  = "rimun202020"; //SMTP password
 public static $MAIL_PORT = 587; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 public function initialize(){
@@ -35,13 +35,13 @@ public function initialize(){
 public function reset_mail($name,$email,$code,$token){
     $this->initialize();
     $date = date("Y");
-    $sendfrom = "nnorom.prince44@gmail.com";
+    $sendfrom = "ruimun@run.edu.ng";
     $sendsubject = "Password Reset Code";
     $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
                 Hi '.$name.', you requested a password reset,
                 <p>Click the Reset button and insert the code given to you to reset your password</p>
                 <a class="btn btn-lg btn-block btn-login font-weight-bold" 
-                href="resetcode?request_from=reset&email='.$email.'&token='.$token.'"
+                href="http://ruimun.org/portal2/resetcode?request_from=reset&email='.$email.'&token='.$token.'"
                 style="background:#494263;color:white;border-radius:30px;padding:5px 10px;" type="button">
                 Reset
                 </a>
@@ -74,13 +74,13 @@ public function reset_mail($name,$email,$code,$token){
 public function signup_mail($name,$email,$code,$token){
         $this->initialize();
         $date = date("Y");
-        $sendfrom = "nnorom.prince44@gmail.com";
+        $sendfrom = "ruimun@run.edu.ng";
         $sendsubject = "Account Activation Code";
         $body = '<body style="margin:0px; font-family:"Arial, Helvetica, sans-serif; font-size:16px;">
                     Hi '.$name.', Welcome to the <span style="font-weight:bold;">REDEEMERS UNIVERSITY INTERNATIONAL MODEL UNITED NATIONS</span>,
                     <p>Click the Validate button and insert the code given to you to validate your access</p>
                     <a class="btn btn-lg btn-block btn-login font-weight-bold" 
-                    href="validate?request_from=validate&email='.$email.'&token='.$token.'"
+                    href="http://ruimun.org/portal2/validate?request_from=validate&email='.$email.'&token='.$token.'"
                     style="background:#494263;color:white;border-radius:30px;padding:5px 10px;" type="button">
                     Validate Account
                     </a>
