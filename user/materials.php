@@ -240,7 +240,7 @@ $lname = $get_name[1];
         });
     }
   </script>
-  <script>
+ <script type="text/javascript">
   <?php include 'js/materials.js' ?>
   </script>
 </body>
