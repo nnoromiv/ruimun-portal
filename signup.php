@@ -214,7 +214,7 @@ $committee =  getCommittee();
 		</div>
 	</div>
 </div>
-<script>
+<script type="text/javascript">
 	<?php include 'js/signup.js' ?>
 </script>
 </body>

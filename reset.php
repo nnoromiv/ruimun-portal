@@ -84,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	    </div>
   	</div>
 </div>
-<script>
+<script type="text/javascript">
 	<?php include 'js/reset.js' ?>
 </script>
 </body>
