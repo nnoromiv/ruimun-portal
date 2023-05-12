@@ -26,9 +26,9 @@ elseif ($_SESSION['type'] == 'virtual') {
     $check = "$";
 }
 elseif ($_SESSION['type'] == 'foreign') {
-    $payment = 150;
+    $payment = 100;
     $type = 'Foreign';
-    $paying = "150";
+    $paying = "100";
     $check = "$";
 }
 $name = get_username();

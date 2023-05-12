@@ -141,7 +141,7 @@ if (!admin()) {
   <script src="assets/datatables/jquery.dataTables.min.js"></script>
   <script src="assets/notify/notify.js"></script>
   <script src="assets/datatables/dataTables.bootstrap4.min.js"></script>
-  <script type="text/javascript">
+  <script>
    <?php include 'js/posts.js' ?>
   </script>
 </body>

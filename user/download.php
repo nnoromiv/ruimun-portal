@@ -80,7 +80,7 @@ $access = null;
 						PAYMENT TYPE - <span style="font-weight:bold;text-transform:uppercase;">RUIMUN <?php echo $type; ?> DELEGATE FEE</span><br>
 						RRR - <span style="font-weight:bold;text-transform:uppercase;"><?php echo $ref_code; ?></span><br>
 						TRANSACTION ID - <span style="font-weight:bold;text-transform:uppercase;"><?php echo $trans_id; ?></span><br>
-						AMOUNT - <span style="font-weight:bold;text-transform:uppercase;">&#8358;<?php echo number_format($amount); ?></span><br>
+AMOUNT - <span style="font-weight:bold;text-transform:uppercase;">&#8358;<?php echo number_format($amount); ?></span><br>
 						DATE - <span style="font-weight:bold;text-transform:uppercase;"><?php echo $captured; ?></span><br>
 					</div>
 				</div>

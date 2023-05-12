@@ -110,38 +110,46 @@ if (!all()) {
 				    if ($stmt->execute()) {
 						$zero = "0";
 						$one = "1";
-						$insert = $access->prepare("INSERT INTO access (user_id, email, password, user_type, captured) VALUES (:user_id, :email, :password, :user_type, :captured)");
-						$insert->bindParam(':user_id', $user_id);
-						$insert->bindParam(':email', $user_email);
-						$insert->bindParam(':password', $password);
-						$insert->bindParam(':user_type', $type);
-						$insert->bindParam(':captured', $captured);
-						if($insert->execute()){
-							$name= ucfirst($user_name);
-							$email = $user_email;
-							$signup__Mail = new Mailing;
-							$signup__Mail->signup_mail($name, $email,$code,$token);
-							$_SESSION['validate'] = 1;
-							$data = array('success'=>true,'mail'=>$email,'token'=>$token);
-						} else{
-								$data = array('false'=>true,'mail'=>$user_email,'token'=>$token);
-							}
 
-						$update = $access->prepare("UPDATE enrollment SET token=:token, status=:zero, code=:code WHERE email=:email AND user_id=:user_id LIMIT 1");
-						$array = array('token'=>$zero,'zero'=>$one,'code'=>$zero,'email'=>$user_email,'user_id'=>$user_id);
+                        $name= ucfirst($user_name);
+                        $email = $user_email;
+                        $signup__Mail = new Mailing;
+                        $signup__Mail->signup_mail($name, $email,$code,$token);
+                        $_SESSION['validate'] = 1;
+                        $data = array('success'=>true,'mail'=>$email,'token'=>$token);
+						// $insert = $access->prepare("INSERT INTO access (user_id, email, password, user_type, captured) VALUES (:user_id, :email, :password, :user_type, :captured)");
+						// $insert->bindParam(':user_id', $user_id);
+						// $insert->bindParam(':email', $user_email);
+						// $insert->bindParam(':password', $password);
+						// $insert->bindParam(':user_type', $type);
+						// $insert->bindParam(':captured', $captured);
+						//if($insert->execute()){
+							// $name= ucfirst($user_name);
+							// $email = $user_email;
+							// $signup__Mail = new Mailing;
+							// $signup__Mail->signup_mail($name, $email,$code,$token);
+							// $_SESSION['validate'] = 1;
+							// $data = array('success'=>true,'mail'=>$email,'token'=>$token);
+						//} 
+                            // else{
+							// 	$data = array('false'=>true,'mail'=>$user_email,'token'=>$token);
+							// }
+
+						// $update = $access->prepare("UPDATE enrollment SET token=:token, status=:zero, code=:code WHERE email=:email AND user_id=:user_id LIMIT 1");
+						// $array = array('token'=>$zero,'zero'=>$one,'code'=>$zero,'email'=>$user_email,'user_id'=>$user_id);
 						
-						if ($update->execute($array)) {
-							unset($_SESSION['validate']);
-							$_SESSION['first_time'] = 1;
-				  			$_SESSION['userid'] = $user_id;
-	                        $_SESSION['type'] = $type;
-	                        $_SESSION['email'] = $user_email;
-	                  		session_regenerate_id(true);
-	                  		$data = array('success'=>true);
-						}
-						else{
-							 	$data = array('false'=>true,'error'=>"Server error, please try again later");
-							}
+						// if ($update->execute($array)) {
+						// 	unset($_SESSION['validate']);
+						// 	$_SESSION['first_time'] = 1;
+				  		// 	$_SESSION['userid'] = $user_id;
+	                    //     $_SESSION['type'] = $type;
+	                    //     $_SESSION['email'] = $user_email;
+	                  	// 	session_regenerate_id(true);
+	                  	// 	$data = array('success'=>true);
+						// }
+						// else{
+						// 	 	$data = array('false'=>true,'error'=>"Server error, please try again later");
+						// 	}
 			    }else{
 				    	$data = array('error'=>"Did not execute");
 					}

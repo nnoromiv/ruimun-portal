@@ -17,7 +17,7 @@ public $mail;
 //Server settings    
 public static $MAIL_HOST = "smtp.gmail.com"; //Set the SMTP server to send through
 public static $MAIL_NAME = "ruimun@run.edu.ng"; //SMTP username
-public static $MAIL_PASSWORD  = "kirtzvpaeethmssy"; //SMTP password
+public static $MAIL_PASSWORD  = "wqbplawtuslntcsd"; //SMTP password
 public static $MAIL_PORT = 587; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
 public function initialize(){

@@ -77,7 +77,7 @@ echo "string";
 	    </div>
   	</div>
 </div>
-<script type="text/javascript">
+<script>
 	<?php include 'js/resetcode.js' ?>
 </script>
 </body>

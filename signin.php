@@ -56,7 +56,7 @@ if (all()) {
 	    </div>
   	</div>
 </div>
-<script type="text/javascript">
+<script>
 	<?php include 'js/signin.js' ?>
 </script>
 </body>

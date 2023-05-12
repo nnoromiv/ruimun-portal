@@ -142,8 +142,11 @@ $(document).on('submit', '#signup', function(event){
         dataType:"json",
         success:function(data){
             if (data.success) {
-                alert("Registration was successful, proceed to log in");
-                // window.location = 'user/login';
+                $("#submit").html("Check Email");
+                $("#submit").prop('disabled', true);
+
+                alert("Registration was successful, check your email address to verify your account");
+                window.location = 'user/login';
                 // setTimeout(function(){window.location = 'user/login'; }, 2000);
                 // window.location = ';
             }else if (data.error){
@@ -159,9 +162,10 @@ $(document).on('submit', '#signup', function(event){
             }
         },
         //Since Message sends but somehow the success message doesn't flow, I've tweaked the code to display a success message instead 
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("Registration was successful, proceed to your email");
-            // alert("Network error, please try again");
+        error: function(response) {
+            console.log(response)
+            alert("Registration was successful, check your email address to verify your account");
+            //alert("Network error, please try again");
             $("#submit").prop('disabled', false);
             $("#submit").html("Sign Up");
             }

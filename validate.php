@@ -4,19 +4,20 @@ if (all()) {
 	redirect("user/login");
 }
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-	if (isset($_SESSION['validate']) && $_SESSION['validate'] == 1 && isset($_GET['request_from']) && $_GET['request_from'] == "validate" && isset($_GET['token'])){
-		$email = clean($_GET['email']);
+	//if (isset($_SESSION['validate']) && $_SESSION['validate'] == 1 && isset($_GET['request_from']) && $_GET['request_from'] == "validate" && isset($_GET['token'])){
+        $email = clean($_GET['email']);
 		$token = clean($_GET['token']);
 		$zero = '0';
 		$check = $access->prepare("SELECT id FROM enrollment WHERE email=:email AND token=:token AND status=:zero LIMIT 1");
 		$check->execute(['email'=>$email,'token'=>$token,'zero'=>$zero]);
 		if($check->rowCount() != 1){
-			redirect("signup");
+		 	redirect("signup");
 		}
-	}else{
-		redirect("signup");
-	}
+	// }else{
+	// 	redirect("signup");
+	// }
 }else{
+    exit('hey');
 	redirect("signup");
 }
 ?>
@@ -70,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 	    </div>
   	</div>
 </div>
-<script type="text/javascript">
+<script>
 	<?php include 'js/validate.js' ?>
 </script>
 </body>

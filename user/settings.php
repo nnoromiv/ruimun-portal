@@ -201,7 +201,7 @@ if (!all()) {
   <script src="assets/jquery-easing/jquery.easing.min.js"></script>
   <script src="assets/js/sb-admin-2.min.js"></script>
   <script src="assets/notify/notify.js"></script>
-  <script type="text/javascript">
+  <script>
    <?php include 'js/settings.js' ?>
   </script>
 </body>

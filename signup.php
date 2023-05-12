@@ -44,7 +44,7 @@ $committee =  getCommittee();
 							<!-- <option value="sec_school">Secondary School Delegate (₦20,000)</option> -->
 							<option value="RUN">Redeemer's University (₦45,000)</option>
 							<!-- <option value="virtual">Virtual Delegate ($10)</option> -->
-							<option value="foreign">International Delegate ($150)</option>
+							<option value="foreign">International Delegate ($100)</option>
 							</select>
 						</div>
 						<div class="form-group">
@@ -214,7 +214,7 @@ $committee =  getCommittee();
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
+<script>
 	<?php include 'js/signup.js' ?>
 </script>
 </body>

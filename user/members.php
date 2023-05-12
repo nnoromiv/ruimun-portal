@@ -113,7 +113,7 @@ if (!admin()) {
 							  <!-- <option value="sec_school">Secondary School Delegate (₦20,000)</option> -->
 							  <option value="45000" id="amount" name="amount">Redeemer's University (₦45,000)</option>
 							  <!-- <option value="virtual">Virtual Delegate ($10)</option> -->
-							  <option value="67000" id="amount" name="amount">International Delegate ($150)</option>
+							  <option value="72000" id="amount" name="amount">International Delegate ($100)</option>
 							  </select>
             </div>
             <div class="modal-footer">

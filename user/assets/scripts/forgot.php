@@ -9,13 +9,15 @@ if (!all()) {
 				$email = clean($_POST['email']);
 				$em = $access->prepare('SELECT user_id FROM access WHERE email=:email LIMIT 1');
 			    $em->execute(['email'=>$email]);
+				$em_result = $em->fetch();
 			    if ($em->rowCount() == 1) {
 			        foreach ($em as $keys) {
 			            $user_id = clean($keys["user_id"]);
 			        }
 			        $check_name = $access->prepare('SELECT name FROM enrollment WHERE user_id=:user_id LIMIT 1');
 	    		 	$check_name->execute(['user_id'=>$user_id]);
-	    		 	foreach ($check_name as $value) {
+					$check_name_result = $check_name->fetch();
+	    		 	foreach ($check_name_result as $value) {
 	    				$name = clean($value["name"]);
 	    		 	}
 			      	$date = date("Y");
@@ -25,6 +27,7 @@ if (!all()) {
 			  		$code = user_codes();
                     $fam = $access->prepare('SELECT user_id FROM reset_password WHERE email=:email LIMIT 1');
     			    $fam->execute(['email'=>$email]);
+					$fam_result = $fam->fetch();
     			    if ($fam->rowCount() == 1) {
     			        $update = mysqli_query($connect, "UPDATE reset_password SET code='$code',token='$token',reset_time='$time' WHERE email='$email' LIMIT 1");
     			        if($update){

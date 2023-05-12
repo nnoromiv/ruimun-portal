@@ -22,7 +22,8 @@ $(document).ready(function(){
                     $("#submit").html("Activate");
                 }
             },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
+            error: function(response) {
+                console.log(response)
                 $("#submit").prop('disabled', false);
                 $("#submit").html("Activate");
                 $('#password_hint').text("Network error, please try again");

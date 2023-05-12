@@ -11,10 +11,12 @@ $(document).ready(function(){});
 			data: new FormData(this),
 			contentType:false,
 			processData:false,
-			dataType:"json",
+			dataType:"html",
 			success:function(data){
-				if (data.success = "true") {
-					// window.location = 'resetcode?request_from=reset&email='+data.mail+'&token='+data.token;
+				console.log(`it is ${data}`)
+				if (data.success) {
+					$("#submit").html('Sent');
+					window.location = 'reset';
 				}else{
 					$('#response').text(data.error);
 					$("#submit").prop('disabled', false);
@@ -23,6 +25,8 @@ $(document).ready(function(){});
 			},
 			//Since Message sends but somehow the success message doesn't flow, I've tweaked the code to display a success message instead 
 			error: function(XMLHttpRequest, textStatus, errorThrown) {
+				console.log(errorThrown)
+				$("#submit").html('Error');
 		    	$("#submit").prop('disabled', false);
 				$("#submit").html("Reset");
 				$('#response').text("Message has been sent");
